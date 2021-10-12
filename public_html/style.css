@@ -1,0 +1,50 @@
+/*.hide-start:not(:first-child) {*/
+/*    display: none;*/
+/*}*/
+#re-btn {
+    display: none;
+}
+body {
+}
+button {
+    outline: none;
+    padding: 7px;
+    margin: 5px 5px 5px 0;
+    background-color: white;
+    border: dimgrey 1px solid;
+    border-radius: 7px;
+}
+button:hover {
+    border-color: rgb(144, 152, 161);
+    box-shadow: rgba(149, 157, 165, 0.2) 1px 8px 24px;
+}
+.score {
+    transition: 5s ease;
+}
+#game {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+}
+.result-block {
+    margin-top: 3%;
+    /*max-height: 100px;*/
+    /*overflow-y: auto;*/
+    /*scroll-behavior: smooth;*/
+}
+.result-block>div.result {
+    animation: showBlock 1s linear forwards;
+}
+@keyframes showBlock {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
