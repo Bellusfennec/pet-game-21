@@ -7,8 +7,9 @@
 body {
 }
 button {
+    font-size: 16px;
     outline: none;
-    padding: 7px;
+    padding: 10px;
     margin: 5px 5px 5px 0;
     background-color: white;
     border: dimgrey 1px solid;
@@ -18,11 +19,8 @@ button:hover {
     border-color: rgb(144, 152, 161);
     box-shadow: rgba(149, 157, 165, 0.2) 1px 8px 24px;
 }
-.score {
-    transition: 5s ease;
-}
 #game {
-    font-size: 150%;
+    font-size: 24px;
 }
 .result-block {
     margin-top: 3%;
