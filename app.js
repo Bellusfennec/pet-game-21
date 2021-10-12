@@ -16,7 +16,7 @@ let dealerSum = 0
 let playerSum = 0
 
 scoreInfo.classList.add('score')
-scoreInfo.innerHTML = `${score}.`
+scoreInfo.innerHTML = `Счет: ${score}.`
 game.appendChild(scoreInfo)
 
 startBtn.classList.add('start-btn')
@@ -57,9 +57,19 @@ startBtn.addEventListener('click', () => {
     dealerInfo.innerHTML = `${getStatus(dealer)} (${dealerSum}).`
     playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
     info.innerHTML = `Взять карту?`
+
+    const result = document.createElement('div')
+    result.classList.add('result')
+    result.innerHTML = `Началась новая игра.`
+    resultBlock.append(result)
 })
 
 addBtn.addEventListener('click', () => {
+
+    const result = document.createElement('div')
+    result.classList.add('result')
+    result.innerHTML = `Вы взяли карту.`
+    resultBlock.append(result)
 
     getDealerAction()
 
@@ -70,10 +80,7 @@ addBtn.addEventListener('click', () => {
     playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
     info.innerHTML = `Хотите еще карту?`
 
-    const result = document.createElement('div')
-    result.classList.add('result')
-    result.innerHTML = `Вы взяли карту.`
-    resultBlock.append(result)
+
 
     getCheck(dealerSum, playerSum)
 })
@@ -161,14 +168,14 @@ function getCheck(dealerSum, playerSum, stop = 0) {
     if (dealerSum > playerSum && dealerSum <= 21 && stop === 1) {
         result.innerHTML = `Вы проиграли.`
         result.classList.add('red')
-        scoreInfo.innerHTML = `${--score}.`
+        scoreInfo.innerHTML = `Счет: ${--score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
     } else if (dealerSum < playerSum && dealerSum <= 21 && stop === 1){
         result.innerHTML = `Вы выиграли!`
         result.classList.add('green')
-        scoreInfo.innerHTML = `${++score}.`
+        scoreInfo.innerHTML = `Счет: ${++score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
@@ -185,28 +192,28 @@ function getCheck(dealerSum, playerSum, stop = 0) {
     } else if (playerSum > 21) {
         result.innerHTML = `Вы проиграли.`
         result.classList.add('red')
-        scoreInfo.innerHTML = `${--score}.`
+        scoreInfo.innerHTML = `Счет: ${--score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
     } else if (dealerSum > 21) {
         result.innerHTML = `Вы выиграли!`
         result.classList.add('green')
-        scoreInfo.innerHTML = `${++score}.`
+        scoreInfo.innerHTML = `Счет: ${++score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
     } else if (playerSum === 21 && dealerSum !== 21) {
         result.innerHTML = `Black Jack!`
         result.classList.add('green')
-        scoreInfo.innerHTML = `${++score}.`
+        scoreInfo.innerHTML = `Счет: ${++score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
     } else if (dealerSum === 21) {
         result.innerHTML = `Вы проиграли.`
         result.classList.add('red')
-        scoreInfo.innerHTML = `${--score}.`
+        scoreInfo.innerHTML = `Счет: ${--score}.`
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
@@ -218,6 +225,7 @@ function getCheck(dealerSum, playerSum, stop = 0) {
 function getDealerAction() {
     const result = document.createElement('div')
     result.classList.add('result')
+    result.style.animationDelay = '0,5s'
 
     if (dealerSum <= 14) {
         dealer.push(getCard())

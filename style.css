@@ -32,7 +32,11 @@ button:hover {
     /*scroll-behavior: smooth;*/
 }
 .result-block>div.result {
+    opacity: 0;
+}
+.result-block>div.result {
     animation: showBlock 1s linear forwards;
+    font-size: 14px;
 }
 @keyframes showBlock {
     0% {
