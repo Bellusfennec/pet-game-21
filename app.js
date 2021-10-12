@@ -45,6 +45,7 @@ startBtn.addEventListener('click', () => {
 
     reBtn.classList.add('add-btn')
     reBtn.innerHTML = 'Новая игра'
+    reBtn.style.display = 'none'
     game.appendChild(reBtn)
 
     resultBlock.classList.add('result-block')
@@ -80,8 +81,6 @@ addBtn.addEventListener('click', () => {
     playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
     info.innerHTML = `Хотите еще карту?`
 
-
-
     getCheck(dealerSum, playerSum)
 })
 stopBtn.addEventListener('click', () => {
@@ -94,6 +93,7 @@ stopBtn.addEventListener('click', () => {
     playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
 
     getCheck(dealerSum, playerSum, 1)
+
 })
 reBtn.addEventListener('click', () => {
     dealer.splice(0,5)

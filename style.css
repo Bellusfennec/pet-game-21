@@ -22,8 +22,7 @@ button:hover {
     transition: 5s ease;
 }
 #game {
-    width: 1200px;
-    margin: 0 auto 0 auto;
+    font-size: 150%;
 }
 .result-block {
     margin-top: 3%;
