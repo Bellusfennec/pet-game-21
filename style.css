@@ -1,24 +1,53 @@
-/*.hide-start:not(:first-child) {*/
-/*    display: none;*/
-/*}*/
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: linear-gradient(130deg, #eafcfc, #fddae0);
+    height: 100%;
+}
 #re-btn {
     display: none;
 }
 button {
+    background: white;
     font-size: 16px;
     outline: none;
     padding: 10px;
     margin: 5px 5px 5px 0;
-    background-color: white;
     border: dimgrey 1px solid;
     border-radius: 7px;
 }
 button:hover {
     border-color: rgb(144, 152, 161);
-    box-shadow: rgba(149, 157, 165, 0.2) 1px 8px 24px;
+}
+@keyframes background {
+    50% {
+        background: darkviolet;
+        box-shadow: 0 -14px 7px -12px mediumorchid inset,
+        0 -21px 7px -12px teal inset,
+        0 -28px 7px -12px plum inset;
+    }
 }
 #game {
     font-size: 24px;
+    margin: auto;
+    width: 300px;
+    padding: 15px;
+}
+#board {
+    align-items: center;
+    border: #C0C0C0 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px 0;
+    height: 300px;
+    width: 300px;
+}
+#score {
+    display: flex;
+    justify-content: space-between;
 }
 .result-block {
     margin-top: 3%;
@@ -46,4 +75,31 @@ button:hover {
 }
 .red {
     color: red;
+}
+.hide {
+    display: none;
+    transition: all 1s;
+}
+.rate-10,
+.rate-100,
+.rate-1000 {
+    border: dimgrey 1px solid;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+}
+.rate-10:hover,
+.rate-100:hover,
+.rate-1000:hover {
+    border: black 1px solid;
+    box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.13);
+}
+
+#rate-list {
+    list-style: none;
+    display: flex;
+}
+#rate-list button {
+    cursor: pointer;
 }
