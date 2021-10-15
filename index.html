@@ -7,7 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="game"></div>
+<div id="game">
+    <div class="screen">
+        <div>Выберите ставку</div>
+        <ul class="rate-list" id="rate-list">
+            <li><button class="rate-btn" data-rate="10">10</button></li>
+            <li><button class="rate-btn" data-rate="50">50</button></li>
+            <li><button class="rate-btn" data-rate="100">100</button></li>
+        </ul>
+    </div>
+    <div class="screen">
+        <div id="score">
+            <div class="balance">Баланс: 0.</div>
+            <div class="rate">Ставка: 0.</div>
+        </div>
+        <div id="board">
+            <div class="dealer">Дилер</div>
+            <div class="dealer-cards"></div>
+            <div class="player-cards"></div>
+            <div class="player">Вы</div>
+        </div>
+        <div class="info"><br>Хотите еще карту?</div>
+
+        <button id="add-btn">Взять карту</button>
+        <button id="stop-btn">Стоп</button>
+        <button id="re-btn">Новая игра</button>
+        <div class="result"></div>
+    </div>
+</div>
 <script src="app.js"></script>
 </body>
 </html>

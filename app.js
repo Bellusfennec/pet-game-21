@@ -1,121 +1,86 @@
-const game = document.querySelector('#game')
-const startBtn = document.createElement('button')
-const scoreInfo = document.createElement('div')
-const dealerInfo = document.createElement('div')
-const playerInfo = document.createElement('div')
-const result = document.createElement('div')
-const resultBlock = document.createElement('div')
-const info = document.createElement('div')
-const addBtn = document.createElement('button')
-const stopBtn = document.createElement('button')
-const reBtn = document.createElement('button')
+const screens = document.querySelectorAll('.screen')
+const rateList = document.querySelector('#rate-list')
+const rateInfo = document.querySelector('.rate')
+const balanceInfo = document.querySelector('.balance')
+
+const dealerCards = document.querySelector('.dealer-cards')
+const playerCards = document.querySelector('.player-cards')
+const dealerInfo = document.querySelector('.dealer')
+const playerInfo = document.querySelector('.player')
+
+const result = document.querySelector('.result')
+const resultInfo = document.createElement('div')
+
+const info = document.querySelector('.info')
+const addBtn = document.querySelector('#add-btn')
+const stopBtn = document.querySelector('#stop-btn')
+const reBtn = document.querySelector('#re-btn')
+
+let balance = 0
+let rate = 0
 let dealer = []
 let player = []
-let score = 0
-let dealerSum = 0
-let playerSum = 0
+screens[1].classList.add('hide')
 
-scoreInfo.classList.add('score')
-scoreInfo.innerHTML = `Счет: ${score}.`
-game.appendChild(scoreInfo)
 
-startBtn.classList.add('start-btn')
-startBtn.innerHTML = 'Старт'
-game.appendChild(startBtn)
+rateList.addEventListener('click', event => {
+     if (event.target.classList.contains('rate-btn')) {
+        rate = parseInt(event.target.getAttribute('data-rate'))
+        rateInfo.innerHTML = `Ставка: ${rate}.`
+        balanceInfo.innerHTML = `Баланс: ${balance}.`
+         screens[0].classList.add('hide')
+         screens[1].classList.remove('hide')
 
-startBtn.addEventListener('click', () => {
-    startBtn.style.display = 'none'
-
-    dealerInfo.classList.add('dealer-info')
-    game.appendChild(dealerInfo)
-
-    playerInfo.classList.add('player-info')
-    game.appendChild(playerInfo)
-
-    info.classList.add('info')
-    game.appendChild(info)
-
-    addBtn.classList.add('add-btn')
-    addBtn.innerHTML = 'Взять карту'
-    game.appendChild(addBtn)
-
-    stopBtn.classList.add('stop-btn')
-    stopBtn.innerHTML = 'Стоп'
-    game.appendChild(stopBtn)
-
-    reBtn.classList.add('add-btn')
-    reBtn.innerHTML = 'Новая игра'
-    reBtn.style.display = 'none'
-    game.appendChild(reBtn)
-
-    resultBlock.classList.add('result-block')
-    game.appendChild(resultBlock)
-
-    dealer.push(getCard())
-    player.push(getCard())
-    dealerSum = getSum(dealer)
-    playerSum = getSum(player)
-    dealerInfo.innerHTML = `${getStatus(dealer)} (${dealerSum}).`
-    playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
-    info.innerHTML = `Взять карту?`
-
-    const result = document.createElement('div')
-    result.classList.add('result')
-    result.innerHTML = `Началась новая игра.`
-    resultBlock.append(result)
+        resultInfo.classList.add('result-info')
+        resultInfo.innerHTML = `Началась новая игра.`
+        result.append(resultInfo)
+     }
 })
 
 addBtn.addEventListener('click', () => {
 
-    const result = document.createElement('div')
-    result.classList.add('result')
-    result.innerHTML = `Вы взяли карту.`
-    resultBlock.append(result)
+    getCardFor(dealer)
+    getCardFor(player)
 
-    getDealerAction()
+    info.innerHTML = `<br>Хотите еще карту?`
 
-    player.push(getCard())
-    playerSum = getSum(player)
-
-    dealerInfo.innerHTML = `${getStatus(dealer)} (${dealerSum}).`
-    playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
-    info.innerHTML = `Хотите еще карту?`
-
-    getCheck(dealerSum, playerSum)
+    getCheck(getSum(dealer), getSum(player))
 })
+
 stopBtn.addEventListener('click', () => {
 
-    getDealerAction()
-    getDealerAction()
-    getDealerAction()
+    // for (let i=0; i<3; i++) {
 
-    dealerInfo.innerHTML = `${getStatus(dealer)} (${dealerSum}).`
-    playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
+    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+        getCardFor(dealer)
+    }
+    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+        getCardFor(dealer)
+    }
+    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+        getCardFor(dealer)
+    }
+    // }
 
-    getCheck(dealerSum, playerSum, 1)
-
+    getCheck(getSum(dealer), getSum(player), 1)
 })
 reBtn.addEventListener('click', () => {
     dealer.splice(0,5)
     player.splice(0,5)
-    dealer.push(getCard())
-    player.push(getCard())
-    dealerSum = 0
-    playerSum = 0
-    dealerSum = getSum(dealer)
-    playerSum = getSum(player)
-    dealerInfo.innerHTML = `${getStatus(dealer)} (${dealerSum}).`
-    playerInfo.innerHTML = `${getStatus(player)} (${playerSum}).`
-    info.innerHTML = `Хотите еще карту?`
-    reBtn.style.display = 'none'
+
+    dealerCards.innerHTML = `${dealer}`
+    dealerInfo.innerHTML = `Дилер`
+
+    playerCards.innerHTML = `${player}`
+    playerInfo.innerHTML = `Вы`
+
+     reBtn.style.display = 'none'
     addBtn.style.display = 'inline-block'
     stopBtn.style.display = 'inline-block'
-
-    const result = document.createElement('div')
-    result.classList.add('result')
-    result.innerHTML = `Началась новая игра.`
-    resultBlock.append(result)
+    screens[0].classList.remove('hide')
+    screens[1].classList.add('hide')
 })
+
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (min - max) + max)
 }
@@ -151,94 +116,64 @@ function getSum(hand) {
     return sum
 }
 
-function getStatus(name) {
-    if (name === dealer) {
-        return `Дилер: ${dealer.join(' ')}.`
-    } else if (name === player) {
-        return `Игрок: ${player.join(' ')}.`
-    } else {
-        return `Новый игрок: ${name.join(' ')}.`
-    }
-}
+// function getStatus(name) {
+//     if (name === dealer) {
+//         return `Карты дилера: ${dealer.join(' ')}.`
+//     } else if (name === player) {
+//         return `Ваши карты: ${player.join(' ')}.`
+//     } else {
+//         return `Новый игрок: ${name.join(' ')}.`
+//     }
+// }
 
 function getCheck(dealerSum, playerSum, stop = 0) {
-    const result = document.createElement('div')
-    result.classList.add('result')
+    const resultInfo = document.createElement('div')
+    resultInfo.classList.add('result-info')
 
-    if (dealerSum > playerSum && dealerSum <= 21 && stop === 1) {
-        result.innerHTML = `Вы проиграли.`
-        result.classList.add('red')
-        scoreInfo.innerHTML = `Счет: ${--score}.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (dealerSum < playerSum && dealerSum <= 21 && stop === 1){
-        result.innerHTML = `Вы выиграли!`
-        result.classList.add('green')
-        scoreInfo.innerHTML = `Счет: ${++score}.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (dealerSum === playerSum && stop === 1){
-        result.innerHTML = `Ничья.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (playerSum === 21 && dealerSum === 21) {
-        result.innerHTML = `Ничья.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (playerSum > 21) {
-        result.innerHTML = `Вы проиграли.`
-        result.classList.add('red')
-        scoreInfo.innerHTML = `Счет: ${--score}.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (dealerSum > 21) {
-        result.innerHTML = `Вы выиграли!`
-        result.classList.add('green')
-        scoreInfo.innerHTML = `Счет: ${++score}.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
+    if (dealerSum > playerSum && dealerSum <= 21 && stop === 1 || playerSum > 21 || dealerSum === 21) {
+        resultInfo.innerHTML = `Вы проиграли.`
+        resultInfo.classList.add('red')
+        balanceInfo.innerHTML = `Баланс: ${balance = balance-rate}.`
+        getStyle()
+    } else if (dealerSum < playerSum && dealerSum <= 21 && stop === 1 || dealerSum > 21){
+        resultInfo.innerHTML = `Вы выиграли!`
+        resultInfo.classList.add('green')
+        balanceInfo.innerHTML = `Баланс: ${balance = balance+rate}.`
+        getStyle()
+    } else if (dealerSum === playerSum && stop === 1 || playerSum === 21 && dealerSum === 21){
+        resultInfo.innerHTML = `Ничья.`
+        getStyle()
     } else if (playerSum === 21 && dealerSum !== 21) {
-        result.innerHTML = `Black Jack!`
-        result.classList.add('green')
-        scoreInfo.innerHTML = `Счет: ${++score}.`
-        addBtn.style.display = 'none'
-        stopBtn.style.display = 'none'
-        reBtn.style.display = 'block'
-    } else if (dealerSum === 21) {
-        result.innerHTML = `Вы проиграли.`
-        result.classList.add('red')
-        scoreInfo.innerHTML = `Счет: ${--score}.`
+        resultInfo.innerHTML = `Black Jack!`
+        resultInfo.classList.add('green')
+        balanceInfo.innerHTML = `Баланс: ${balance = balance+rate}.`
+        getStyle()
+    }
+
+    function getStyle() {
         addBtn.style.display = 'none'
         stopBtn.style.display = 'none'
         reBtn.style.display = 'block'
     }
 
-    resultBlock.append(result)
+    result.append(resultInfo)
 }
 
-function getDealerAction() {
-    const result = document.createElement('div')
-    result.classList.add('result')
-    result.style.animationDelay = '0,5s'
+function getCardFor(name) {
+    const resultInfo = document.createElement('div')
+    resultInfo.classList.add('result-info')
+    resultInfo.style.animationDelay = '0,5s'
 
-    if (dealerSum <= 14) {
+    if (name === dealer) {
         dealer.push(getCard())
-        dealerSum = getSum(dealer)
-        result.innerHTML = `Дилер взял карту.`
-    } else if (playerSum > dealerSum) {
-        dealer.push(getCard())
-        dealerSum = getSum(dealer)
-        result.innerHTML = `Дилер взял карту.`
-    } else {
-        dealerSum = getSum(dealer)
+        dealerCards.innerHTML = `${dealer}`
+        dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
+        resultInfo.innerHTML = `Дилер взял карту.`
+    }  else if (name === player) {
+        player.push(getCard())
+        playerCards.innerHTML = `${player}`
+        playerInfo.innerHTML = `Вы (${getSum(player)}).`
+        resultInfo.innerHTML = `Вы взяли карту.`
     }
-
-
-    resultBlock.append(result)
+    result.append(resultInfo)
 }
