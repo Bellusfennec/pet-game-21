@@ -2,15 +2,38 @@
     margin: 0;
     padding: 0;
 }
+html,
 body {
-    background: linear-gradient(130deg, #eafcfc, #fddae0);
+    background: #ADA996;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     height: 100%;
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+}
+/*@media screen and (height: 100%){*/
+/*    body {*/
+/*        height: 200vh;*/
+/*    }*/
+/*}*/
+@keyframes gradient {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
 }
 #re-btn {
     display: none;
 }
 button {
-    background: white;
+    background: rgba(234, 252, 252, 0.3);
+    cursor: pointer;
     font-size: 16px;
     outline: none;
     padding: 10px;
@@ -18,26 +41,23 @@ button {
     border: dimgrey 1px solid;
     border-radius: 7px;
 }
-button:hover {
+button:hover,
+button:focus {
     border-color: rgb(144, 152, 161);
+    box-shadow: 0 -14px 7px -12px #fddae0 inset;
+    outline: 0;
 }
-@keyframes background {
-    50% {
-        background: darkviolet;
-        box-shadow: 0 -14px 7px -12px mediumorchid inset,
-        0 -21px 7px -12px teal inset,
-        0 -28px 7px -12px plum inset;
-    }
-}
+
 #game {
     font-size: 24px;
     margin: auto;
     width: 300px;
     padding: 15px;
+
 }
 #board {
     align-items: center;
-    border: #C0C0C0 1px solid;
+    border: #282828 1px solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
