@@ -1,5 +1,6 @@
 const screens = document.querySelector('.screen')
 const ratePopup = document.querySelector('.rate-popup')
+const ratePopupInfo = document.querySelector('.not-founds')
 const rateList = document.querySelector('#rate-list')
 const rateInfo = document.querySelector('.rate')
 const balanceInfo = document.querySelector('.balance')
@@ -17,24 +18,32 @@ const addBtn = document.querySelector('#add-btn')
 const stopBtn = document.querySelector('#stop-btn')
 const reBtn = document.querySelector('#re-btn')
 
-let balance = 100
+let balance = 9
 let rate = 0
 let dealer = []
 let player = []
+balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
 screens.classList.add('hide')
+
 
 
 rateList.addEventListener('click', event => {
      if (event.target.classList.contains('rate-btn')) {
         rate = parseInt(event.target.getAttribute('data-rate'))
-        rateInfo.innerHTML = `Ставка: ${rate} &#8381;`
-        balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
-         ratePopup.classList.add('hide')
-         screens.classList.remove('hide')
+         if (balance < rate) {
+             ratePopupInfo.innerHTML = `Недостаточно средств.`
+         } else {
+             rateInfo.innerHTML = `Ставка: ${rate} &#8381;`
+             balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
+             ratePopup.classList.add('hide')
+             screens.classList.remove('hide')
 
-        resultInfo.classList.add('result-info')
-        resultInfo.innerHTML = `Началась новая игра.`
-        result.append(resultInfo)
+             resultInfo.classList.add('result-info')
+             resultInfo.innerHTML = `Началась новая игра.`
+             result.append(resultInfo)
+             ratePopupInfo.innerHTML = ``
+         }
+         ratePopup.append(ratePopupInfo)
      }
 })
 
@@ -52,13 +61,13 @@ stopBtn.addEventListener('click', () => {
 
     // for (let i=0; i<3; i++) {
 
-    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+    if (getSum(dealer) <= 1 || getSum(player) > getSum(dealer)) {
         getCardFor(dealer)
     }
-    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+    if (getSum(dealer) <= 1 || getSum(player) > getSum(dealer)) {
         getCardFor(dealer)
     }
-    if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
+    if (getSum(dealer) <= 1 || getSum(player) > getSum(dealer)) {
         getCardFor(dealer)
     }
     // }

@@ -128,3 +128,7 @@ button:focus {
 .rate-popup>div {
     text-align: center;
 }
+.not-founds {
+    font-size: .7em;
+    color: red;
+}
