@@ -1,4 +1,5 @@
-const screens = document.querySelectorAll('.screen')
+const screens = document.querySelector('.screen')
+const ratePopup = document.querySelector('.rate-popup')
 const rateList = document.querySelector('#rate-list')
 const rateInfo = document.querySelector('.rate')
 const balanceInfo = document.querySelector('.balance')
@@ -20,7 +21,7 @@ let balance = 100
 let rate = 0
 let dealer = []
 let player = []
-screens[1].classList.add('hide')
+screens.classList.add('hide')
 
 
 rateList.addEventListener('click', event => {
@@ -28,8 +29,8 @@ rateList.addEventListener('click', event => {
         rate = parseInt(event.target.getAttribute('data-rate'))
         rateInfo.innerHTML = `Ставка: ${rate} &#8381;`
         balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
-         screens[0].classList.add('hide')
-         screens[1].classList.remove('hide')
+         ratePopup.classList.add('hide')
+         screens.classList.remove('hide')
 
         resultInfo.classList.add('result-info')
         resultInfo.innerHTML = `Началась новая игра.`
@@ -77,8 +78,8 @@ reBtn.addEventListener('click', () => {
      reBtn.style.display = 'none'
     addBtn.style.display = 'inline-block'
     stopBtn.style.display = 'inline-block'
-    screens[0].classList.remove('hide')
-    screens[1].classList.add('hide')
+    ratePopup.classList.remove('hide')
+    screens.classList.add('hide')
 })
 
 function getRandomNumber(min, max) {

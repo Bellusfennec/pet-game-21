@@ -4,12 +4,12 @@
 }
 html,
 body {
-    background: #ADA996;
-    background: linear-gradient(to bottom, #EAEAEA, #DBDBDB, #ADA996);
-
-    height: 100%;
+    /*animation: gradient 10s ease infinite;*/
+    background: #fff;
     background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    height: 100%;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
 }
 /*@media screen and (height: 100%){*/
 /*    body {*/
@@ -18,13 +18,13 @@ body {
 /*}*/
 @keyframes gradient {
     0% {
-        background-position: 50% 00%;
+        background-position: 50% 1%;
     }
     50% {
         background-position: 50% 100%;
     }
     100% {
-        background-position: 50% 0%;
+        background-position: 50% 1%;
     }
 }
 #re-btn {
@@ -33,12 +33,13 @@ body {
 button {
     background: rgba(234, 252, 252, 0.3);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
+    font-family: inherit;
     outline: none;
-    padding: 10px;
-    margin: 5px 5px 5px 0;
+    padding: .5em 1em;
+    margin: .5em .5em .5em 0;
     border: dimgrey 1px solid;
-    border-radius: 7px;
+    border-radius: .5em;
 }
 button:hover,
 button:focus {
@@ -99,26 +100,19 @@ button:focus {
     display: none;
     transition: all 1s;
 }
-.rate-10,
-.rate-100,
-.rate-1000 {
-    border: dimgrey 1px solid;
-    border-radius: 20px;
-    cursor: pointer;
-    display: inline-block;
-    padding: 10px 20px;
-}
-.rate-10:hover,
-.rate-100:hover,
-.rate-1000:hover {
-    border: black 1px solid;
-    box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.13);
-}
-
 #rate-list {
     list-style: none;
     display: flex;
 }
-#rate-list button {
-    cursor: pointer;
+.rate-popup {
+    box-sizing: border-box;
+    position: fixed;
+    top: 35vh;
+    padding: 1rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: #C0C0C0 0 0 1rem .5rem;
+}
+.rate-popup>div {
+    text-align: center;
 }
