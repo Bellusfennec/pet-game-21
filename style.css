@@ -36,10 +36,13 @@ button {
     font-size: 1em;
     font-family: inherit;
     outline: none;
-    padding: .5em 1em;
+    padding: .4em .8em;
     margin: .5em .5em .5em 0;
     border: dimgrey 1px solid;
     border-radius: .5em;
+}
+button:last-of-type {
+    margin-right: 0;
 }
 button:hover,
 button:focus {
@@ -103,6 +106,15 @@ button:focus {
 #rate-list {
     list-style: none;
     display: flex;
+}
+#rate-list button {
+    margin-right: 0;
+}
+#rate-list li {
+    margin-right: .5rem;
+}
+#rate-list li:last-of-type {
+    margin-right: 0;
 }
 .rate-popup {
     box-sizing: border-box;
