@@ -8,19 +8,21 @@
 </head>
 <body>
 <div id="game">
+    <div id="score">
+        <div class="balance">Баланс: 0 &#8381;</div>
+        <div class="rate">Ставка: 0 &#8381;</div>
+    </div>
     <div class="rate-popup">
         <div>Выберите ставку</div>
         <ul class="rate-list" id="rate-list">
+            <li><button class="rate-btn" data-rate="1">1 &#8381;</button></li>
+            <li><button class="rate-btn" data-rate="5">5 &#8381;</button></li>
             <li><button class="rate-btn" data-rate="10">10 &#8381;</button></li>
-            <li><button class="rate-btn" data-rate="30">30 &#8381;</button></li>
-            <li><button class="rate-btn" data-rate="75">75 &#8381;</button></li>
         </ul>
+        <div class="not-founds"></div>
     </div>
     <div class="screen">
-        <div id="score">
-            <div class="balance">Баланс: 0 &#8381;</div>
-            <div class="rate">Ставка: 0 &#8381;</div>
-        </div>
+
         <div id="board">
             <div class="dealer">Дилер</div>
             <div class="dealer-cards"></div>
