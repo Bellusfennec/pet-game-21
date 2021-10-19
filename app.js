@@ -18,7 +18,7 @@ const addBtn = document.querySelector('#add-btn')
 const stopBtn = document.querySelector('#stop-btn')
 const reBtn = document.querySelector('#re-btn')
 
-let balance = 9
+let balance = 5
 let rate = 0
 let dealer = []
 let player = []
