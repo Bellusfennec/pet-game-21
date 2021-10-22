@@ -112,48 +112,11 @@ function contains(arr, elem) {
     return arr.indexOf(elem) !== -1;
 }
 
-const cardss = document.querySelector('#cards')
-function Card(rank, suit) {
-    this.rank = rank;
-    this.suit = suit;
-}
-const rank = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-const types = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
-deck = new Array(52);
-var i;
-var j;
-for (i = 0; i < types.length; i++) {
-    for (j = 0; j < rank.length; j++) {
-        deck[i * rank.length + j] = new Card(rank[j], types[i]);
-        displayCard(types[i], rank[j]);
-    }
-}
-
-function displayCard(card, number) {
-    const cardDiv = document.createElement('card')
-    cardDiv.innerHTML = `
-<div class="card">
-<div class="top">
-<span class="number"> ${number}</span>
-<span class="icon">${card}</span>
-</div>
-<div class="lg_icon">${card}</div>
-<div class="bottom">
-<span class="icon rotate">${card}</span>
-<span class="number rotate">${number}</span>
-</div>
-</div>
-`
-    // cardss.append(cardDiv)
-}
-//
-
 function getSum(hand) {
     let sum = 0
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
         card = card.split('&')[0]
-
         if (card.split('&')[0] !== 'Ace') {
             if (card === 'Jack' || card === 'Queen' || card === 'King') {
                 sum = sum + 10
@@ -165,7 +128,7 @@ function getSum(hand) {
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
         card = card.split('&')[0]
-        if (card.split('&')[0] === 'A') {
+        if (card.split('&')[0] === 'Ace') {
             if (sum > 10) {
                 sum = sum + 1
             } else {
