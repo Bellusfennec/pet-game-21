@@ -55,18 +55,21 @@ button:focus {
     font-size: 24px;
     margin: auto;
     width: 300px;
-    padding: 15px;
+    box-sizing: content-box;
 
 }
 #board {
     align-items: center;
+    background: radial-gradient( #76b852, #8dc26f);
     border: #282828 1px solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 20px 0;
-    height: 300px;
-    width: 300px;
+    height: 350px;
+    /*width: 100%;*/
+    padding: .5rem;
+    box-sizing: border-box;
 }
 #score {
     display: flex;
@@ -132,3 +135,61 @@ button:focus {
     font-size: .7em;
     color: red;
 }
+.dealer-cards,
+.player-cards {
+    display: flex;
+}
+.card {
+   width: 50px;
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+/*.card{*/
+/*    border:1px solid #ccc;*/
+/*    border-radius: 2px;*/
+/*    background: #fff;*/
+/*    color:#444;*/
+/*    width: 150px;*/
+/*    height:250px;*/
+/*    margin: 10px;*/
+/*    display: inline-block;*/
+/*}*/
+/*.top, .bottom{*/
+/*    font-size:24px;*/
+/*    padding: 10px;*/
+/*}*/
+/*.bottom{*/
+/*    float: right;*/
+/*}*/
+/*.number, .icon{*/
+/*    display: block;*/
+/*}*/
+/*.rotate{*/
+/*    transform: rotate(180deg);*/
+/*    -ms-transform: rotate(180deg); !* IE 9 *!*/
+/*    -webkit-transform: rotate(180deg); !* Chrome, Safari, Opera *!*/
+/*}*/
+/*.lg_icon{*/
+/*    font-size: 70px;*/
+/*    text-align: center;*/
+/*    display: block;*/
+/*}*/
+/*.fade-in {*/
+/*    opacity:0;  !* make things invisible upon start *!*/
+/*    -webkit-animation:fadeIn ease-in 1;  !* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time *!*/
+/*    -moz-animation:fadeIn ease-in 1;*/
+/*    animation:fadeIn ease-in 1;*/
+
+/*    -webkit-animation-fill-mode:forwards;  !* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*!*/
+/*    -moz-animation-fill-mode:forwards;*/
+/*    animation-fill-mode:forwards;*/
+
+/*    -webkit-animation-duration:1s;*/
+/*    -moz-animation-duration:1s;*/
+/*    animation-duration:1s;*/
+/*}*/

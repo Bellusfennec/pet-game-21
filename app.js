@@ -54,7 +54,7 @@ addBtn.addEventListener('click', () => {
 
     info.innerHTML = `Хотите еще карту?`
 
-    getCheck(getSum(dealer), getSum(player))
+   // getCheck(getSum(dealer), getSum(player))
 })
 
 stopBtn.addEventListener('click', () => {
@@ -75,8 +75,9 @@ stopBtn.addEventListener('click', () => {
     getCheck(getSum(dealer), getSum(player), 1)
 })
 reBtn.addEventListener('click', () => {
-    dealer.splice(0,5)
-    player.splice(0,5)
+
+    dealer = []
+    player = []
 
     dealerCards.innerHTML = `${dealer}`
     dealerInfo.innerHTML = `Дилер`
@@ -96,16 +97,65 @@ function getRandomNumber(min, max) {
 }
 
 function getCard() {
-    const cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    return cards[getRandomNumber(0, cards.length - 1)]
+    const cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+    const types = ["&clubs", "&diamonds", "&hearts", "&spades"]
+    return cards[getRandomNumber(0, cards.length - 1)] + types[getRandomNumber(0, types.length - 1)]
+    // return [
+    //     cards[getRandomNumber(0, cards.length - 1)],
+    //     types[getRandomNumber(0, types.length - 1)]
+    // ]
 }
+
+//
+
+function contains(arr, elem) {
+    return arr.indexOf(elem) !== -1;
+}
+
+const cardss = document.querySelector('#cards')
+function Card(rank, suit) {
+    this.rank = rank;
+    this.suit = suit;
+}
+const rank = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+const types = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
+deck = new Array(52);
+var i;
+var j;
+for (i = 0; i < types.length; i++) {
+    for (j = 0; j < rank.length; j++) {
+        deck[i * rank.length + j] = new Card(rank[j], types[i]);
+        displayCard(types[i], rank[j]);
+    }
+}
+
+function displayCard(card, number) {
+    const cardDiv = document.createElement('card')
+    cardDiv.innerHTML = `
+<div class="card">
+<div class="top">
+<span class="number"> ${number}</span>
+<span class="icon">${card}</span>
+</div>
+<div class="lg_icon">${card}</div>
+<div class="bottom">
+<span class="icon rotate">${card}</span>
+<span class="number rotate">${number}</span>
+</div>
+</div>
+`
+    // cardss.append(cardDiv)
+}
+//
 
 function getSum(hand) {
     let sum = 0
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
-        if (card !== 'A') {
-            if (card === 'J' || card === 'Q' || card === 'K') {
+        card = card.split('&')[0]
+
+        if (card.split('&')[0] !== 'Ace') {
+            if (card === 'Jack' || card === 'Queen' || card === 'King') {
                 sum = sum + 10
             } else {
                 sum = sum + parseInt(card)
@@ -114,7 +164,8 @@ function getSum(hand) {
     }
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
-        if (card === 'A') {
+        card = card.split('&')[0]
+        if (card.split('&')[0] === 'A') {
             if (sum > 10) {
                 sum = sum + 1
             } else {
@@ -126,32 +177,22 @@ function getSum(hand) {
     return sum
 }
 
-// function getStatus(name) {
-//     if (name === dealer) {
-//         return `Карты дилера: ${dealer.join(' ')}.`
-//     } else if (name === player) {
-//         return `Ваши карты: ${player.join(' ')}.`
-//     } else {
-//         return `Новый игрок: ${name.join(' ')}.`
-//     }
-// }
-
 function getCheck(dealerSum, playerSum, stop = 0) {
     const resultInfo = document.createElement('div')
     resultInfo.classList.add('result-info')
 
-    if (dealerSum > playerSum && dealerSum <= 21 && stop === 1 || playerSum > 21 || dealerSum === 21) {
-        resultInfo.innerHTML = `Вы проиграли.`
-        resultInfo.classList.add('red')
-        balanceInfo.innerHTML = `Баланс: ${balance = balance-rate} &#8381;`
+    if (dealerSum === playerSum && stop === 1 || playerSum === 21 && dealerSum === 21){
+        resultInfo.innerHTML = `Ничья.`
         getStyle()
     } else if (dealerSum < playerSum && dealerSum <= 21 && stop === 1 || dealerSum > 21){
         resultInfo.innerHTML = `Вы выиграли!`
         resultInfo.classList.add('green')
         balanceInfo.innerHTML = `Баланс: ${balance = balance+rate} &#8381;`
         getStyle()
-    } else if (dealerSum === playerSum && stop === 1 || playerSum === 21 && dealerSum === 21){
-        resultInfo.innerHTML = `Ничья.`
+    } else if (dealerSum > playerSum && dealerSum <= 21 && stop === 1 || playerSum > 21 || dealerSum === 21) {
+        resultInfo.innerHTML = `Вы проиграли.`
+        resultInfo.classList.add('red')
+        balanceInfo.innerHTML = `Баланс: ${balance = balance-rate} &#8381;`
         getStyle()
     } else if (playerSum === 21 && dealerSum !== 21) {
         resultInfo.innerHTML = `Black Jack!`
@@ -176,15 +217,44 @@ function getCheck(dealerSum, playerSum, stop = 0) {
 }
 
 function getCardFor(name) {
+    let rank = ''
+    let suit = ''
     if (name === dealer) {
         if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
-            dealer.push(getCard())
-            dealerCards.innerHTML = `${dealer}`
+            // dealer.push(getCard())
+            newCard(dealer)
+            rank = dealer[dealer.length - 1].split('&')[0]
+            suit = dealer[dealer.length - 1].split('&')[1]
+            dealerCards.innerHTML += `<img class="card" src = "cards/deck_${rank}_of_${suit}.svg">`
+            //dealerCards.innerHTML = `${dealer}`
             dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
         }
     }  else if (name === player) {
-        player.push(getCard())
-        playerCards.innerHTML = `${player}`
+        // player.push(getCard())
+        newCard(player)
+        rank = player[player.length - 1].split('&')[0]
+        suit = player[player.length - 1].split('&')[1]
+        playerCards.innerHTML += `<img class="card" src = "cards/deck_${rank}_of_${suit}.svg">`
+
+        // playerCards.innerHTML = `${player}`
         playerInfo.innerHTML = `Вы (${getSum(player)}).`
     }
 }
+
+function newCard(array) {
+    let a = getCard()
+    let i=0
+    while (i < 1) {
+        if (contains(array, a) === false) {
+            array.push(a)
+            return array
+            i++
+        } else if (array.length === 52) {
+            i++
+        } else {
+            a = getCard()
+        }
+    }
+
+}
+
