@@ -54,7 +54,7 @@ addBtn.addEventListener('click', () => {
 
     info.innerHTML = `Хотите еще карту?`
 
-   // getCheck(getSum(dealer), getSum(player))
+   getCheck(getSum(dealer), getSum(player))
 })
 
 stopBtn.addEventListener('click', () => {
