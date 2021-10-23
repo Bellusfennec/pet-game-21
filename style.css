@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 html,
 body {
@@ -8,7 +9,7 @@ body {
     background: #fff;
     background-size: 400% 400%;
     height: 100%;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Roboto', sans-serif;
 }
 /*@media screen and (height: 100%){*/
@@ -36,10 +37,11 @@ button {
     font-size: 1em;
     font-family: inherit;
     outline: none;
-    padding: .4em .8em;
+    padding: .3em .6em;
     margin: .5em .5em .5em 0;
     border: dimgrey 1px solid;
     border-radius: .5em;
+    white-space: nowrap;
 }
 button:last-of-type {
     margin-right: 0;
@@ -58,6 +60,14 @@ button:focus {
     box-sizing: content-box;
 
 }
+@media screen and (max-width: 400px){
+    #game {
+        width: 100%;
+        padding: .5em;
+        box-sizing: border-box;
+    }
+
+}
 #board {
     align-items: center;
     background: radial-gradient( #76b852, #8dc26f);
@@ -66,7 +76,7 @@ button:focus {
     flex-direction: column;
     justify-content: space-between;
     margin: 20px 0;
-    height: 350px;
+    height: 250px;
     /*width: 100%;*/
     padding: .5rem;
     box-sizing: border-box;
@@ -122,7 +132,10 @@ button:focus {
 .rate-popup {
     box-sizing: border-box;
     position: fixed;
-    top: 35vh;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
     padding: 1rem;
     background: white;
     border-radius: 1rem;
@@ -146,6 +159,10 @@ button:focus {
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    opacity: 1;
+}
+.card + .card {
+    margin-left: .5rem;
 }
 
 
@@ -179,17 +196,17 @@ button:focus {
 /*    text-align: center;*/
 /*    display: block;*/
 /*}*/
-/*.fade-in {*/
-/*    opacity:0;  !* make things invisible upon start *!*/
-/*    -webkit-animation:fadeIn ease-in 1;  !* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time *!*/
-/*    -moz-animation:fadeIn ease-in 1;*/
-/*    animation:fadeIn ease-in 1;*/
+.fade-in {
+    /*opacity:1;  !* make things invisible upon start *!*/
+    /*-webkit-animation:fadeIn ease-in 1;  !* call our keyframe named fadeIn, use animation ease-in and repeat it only 1 time *!*/
+    /*-moz-animation:fadeIn ease-in 1;*/
+    /*animation:fadeIn ease-in 1;*/
 
-/*    -webkit-animation-fill-mode:forwards;  !* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*!*/
-/*    -moz-animation-fill-mode:forwards;*/
-/*    animation-fill-mode:forwards;*/
+    /*-webkit-animation-fill-mode:forwards;  !* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*!*/
+    /*-moz-animation-fill-mode:forwards;*/
+    /*animation-fill-mode:forwards;*/
 
-/*    -webkit-animation-duration:1s;*/
-/*    -moz-animation-duration:1s;*/
-/*    animation-duration:1s;*/
-/*}*/
+    /*-webkit-animation-duration:1s;*/
+    /*-moz-animation-duration:1s;*/
+    /*animation-duration:1s;*/
+}

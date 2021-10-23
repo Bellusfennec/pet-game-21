@@ -85,7 +85,7 @@ reBtn.addEventListener('click', () => {
     playerCards.innerHTML = `${player}`
     playerInfo.innerHTML = `Вы`
 
-     reBtn.style.display = 'none'
+    reBtn.style.display = 'none'
     addBtn.style.display = 'inline-block'
     stopBtn.style.display = 'inline-block'
     ratePopup.classList.remove('hide')
@@ -100,13 +100,8 @@ function getCard() {
     const cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
     const types = ["&clubs", "&diamonds", "&hearts", "&spades"]
     return cards[getRandomNumber(0, cards.length - 1)] + types[getRandomNumber(0, types.length - 1)]
-    // return [
-    //     cards[getRandomNumber(0, cards.length - 1)],
-    //     types[getRandomNumber(0, types.length - 1)]
-    // ]
 }
 
-//
 
 function contains(arr, elem) {
     return arr.indexOf(elem) !== -1;
@@ -184,22 +179,17 @@ function getCardFor(name) {
     let suit = ''
     if (name === dealer) {
         if (getSum(dealer) <= 14 || getSum(player) > getSum(dealer)) {
-            // dealer.push(getCard())
             newCard(dealer)
             rank = dealer[dealer.length - 1].split('&')[0]
             suit = dealer[dealer.length - 1].split('&')[1]
-            dealerCards.innerHTML += `<img class="card" src = "cards/deck_${rank}_of_${suit}.svg">`
-            //dealerCards.innerHTML = `${dealer}`
+            dealerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
             dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
         }
     }  else if (name === player) {
-        // player.push(getCard())
         newCard(player)
         rank = player[player.length - 1].split('&')[0]
         suit = player[player.length - 1].split('&')[1]
-        playerCards.innerHTML += `<img class="card" src = "cards/deck_${rank}_of_${suit}.svg">`
-
-        // playerCards.innerHTML = `${player}`
+        playerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
         playerInfo.innerHTML = `Вы (${getSum(player)}).`
     }
 }
@@ -210,8 +200,8 @@ function newCard(array) {
     while (i < 1) {
         if (contains(array, a) === false) {
             array.push(a)
-            return array
             i++
+            return array
         } else if (array.length === 52) {
             i++
         } else {
