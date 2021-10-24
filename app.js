@@ -24,6 +24,7 @@ let dealer = []
 let player = []
 balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
 screens.classList.add('hide')
+reBtn.classList.add('hide')
 
 
 
