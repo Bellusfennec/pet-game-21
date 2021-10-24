@@ -85,9 +85,9 @@ reBtn.addEventListener('click', () => {
     playerCards.innerHTML = `${player}`
     playerInfo.innerHTML = `Вы`
 
-    reBtn.style.display = 'none'
-    addBtn.style.display = 'inline-block'
-    stopBtn.style.display = 'inline-block'
+    reBtn.classList.add('hide')
+    addBtn.classList.remove('hide')
+    stopBtn.classList.remove('hide')
     ratePopup.classList.remove('hide')
     screens.classList.add('hide')
 })
@@ -118,20 +118,25 @@ function getSum(hand) {
             } else {
                 sum = sum + parseInt(card)
             }
-        }
-    }
-    for (let i=0; i<hand.length; i++) {
-        let card = hand[i]
-        card = card.split('&')[0]
-        if (card.split('&')[0] === 'Ace') {
+        } else if (card.split('&')[0] === 'Ace') {
             if (sum > 10) {
                 sum = sum + 1
             } else {
                 sum = sum + 11
             }
         }
-
     }
+    // for (let i=0; i<hand.length; i++) {
+    //     let card = hand[i]
+    //     card = card.split('&')[0]
+    //     if (card.split('&')[0] === 'Ace') {
+    //         if (sum > 10) {
+    //             sum = sum + 1
+    //         } else {
+    //             sum = sum + 11
+    //         }
+    //     }
+    // }
     return sum
 }
 
@@ -163,12 +168,12 @@ function getCheck(dealerSum, playerSum, stop = 0) {
         if (balance <= 0) {
             resultInfo.classList.add('red')
             resultInfo.innerHTML = `Вы банкрот.`
-            addBtn.style.display = 'none'
-            stopBtn.style.display = 'none'
+            addBtn.classList.add('hide')
+            stopBtn.classList.add('hide')
         } else {
-            addBtn.style.display = 'none'
-            stopBtn.style.display = 'none'
-            reBtn.style.display = 'block'
+            addBtn.classList.add('hide')
+            stopBtn.classList.add('hide')
+            reBtn.classList.remove('hide')
         }
     }
     result.append(resultInfo)
@@ -201,6 +206,7 @@ function newCard(array) {
         if (contains(array, a) === false) {
             array.push(a)
             i++
+            console.log(array.length)
             return array
         } else if (array.length === 52) {
             i++
@@ -208,6 +214,6 @@ function newCard(array) {
             a = getCard()
         }
     }
-
+    console.log(array.length)
 }
 

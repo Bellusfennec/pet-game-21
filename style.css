@@ -5,35 +5,28 @@
 }
 html,
 body {
-    /*animation: gradient 10s ease infinite;*/
     background: #fff;
     background-size: 400% 400%;
     height: 100%;
-    font-size: 14px;
+    font-size: 40px;
     font-family: 'Roboto', sans-serif;
 }
-/*@media screen and (height: 100%){*/
-/*    body {*/
-/*        height: 200vh;*/
-/*    }*/
-/*}*/
-@keyframes gradient {
-    0% {
-        background-position: 50% 1%;
-    }
-    50% {
-        background-position: 50% 100%;
-    }
-    100% {
-        background-position: 50% 1%;
+@media screen and (max-width: 768px){
+    html,
+    body {
+        font-size: 30px;
     }
 }
-#re-btn {
-    display: none;
+@media screen and (max-width: 576px){
+    html,
+    body {
+        font-size: 20px;
+    }
 }
 button {
     background: rgba(234, 252, 252, 0.3);
     cursor: pointer;
+    color: black;
     font-size: 1em;
     font-family: inherit;
     outline: none;
@@ -52,59 +45,30 @@ button:focus {
     box-shadow: 0 -14px 7px -12px #fddae0 inset;
     outline: 0;
 }
-
 #game {
-    font-size: 24px;
-    margin: auto;
-    width: 300px;
-    box-sizing: content-box;
-
-}
-@media screen and (max-width: 400px){
-    #game {
-        width: 100%;
-        padding: .5em;
-        box-sizing: border-box;
-    }
-
+    width: 100%;
+    padding: .5em;
+    box-sizing: border-box;
 }
 #board {
     align-items: center;
-    background: radial-gradient( #76b852, #8dc26f);
+    background: radial-gradient( #63be41, #76b95e);
     border: #282828 1px solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 20px 0;
-    height: 250px;
+    margin: .5rem 0;
+    height: 13rem;
     /*width: 100%;*/
     padding: .5rem;
     box-sizing: border-box;
 }
+.screen {
+    text-align: center;
+}
 #score {
     display: flex;
     justify-content: space-between;
-}
-.result-block {
-    margin-top: 3%;
-    /*max-height: 100px;*/
-    /*overflow-y: auto;*/
-    /*scroll-behavior: smooth;*/
-}
-.result-block>div.result {
-    opacity: 0;
-}
-.result-block>div.result {
-    animation: showBlock 1s linear forwards;
-    font-size: 14px;
-}
-@keyframes showBlock {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 .green {
     color: green;
@@ -134,7 +98,6 @@ button:focus {
     position: fixed;
     top: 50%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
     padding: 1rem;
     background: white;
@@ -153,7 +116,7 @@ button:focus {
     display: flex;
 }
 .card {
-   width: 50px;
+   width: 2.5rem;
     flex: 1;
     background-size: cover;
     background-position: center;
@@ -163,50 +126,4 @@ button:focus {
 }
 .card + .card {
     margin-left: .5rem;
-}
-
-
-/*.card{*/
-/*    border:1px solid #ccc;*/
-/*    border-radius: 2px;*/
-/*    background: #fff;*/
-/*    color:#444;*/
-/*    width: 150px;*/
-/*    height:250px;*/
-/*    margin: 10px;*/
-/*    display: inline-block;*/
-/*}*/
-/*.top, .bottom{*/
-/*    font-size:24px;*/
-/*    padding: 10px;*/
-/*}*/
-/*.bottom{*/
-/*    float: right;*/
-/*}*/
-/*.number, .icon{*/
-/*    display: block;*/
-/*}*/
-/*.rotate{*/
-/*    transform: rotate(180deg);*/
-/*    -ms-transform: rotate(180deg); !* IE 9 *!*/
-/*    -webkit-transform: rotate(180deg); !* Chrome, Safari, Opera *!*/
-/*}*/
-/*.lg_icon{*/
-/*    font-size: 70px;*/
-/*    text-align: center;*/
-/*    display: block;*/
-/*}*/
-.fade-in {
-    /*opacity:1;  !* make things invisible upon start *!*/
-    /*-webkit-animation:fadeIn ease-in 1;  !* call our keyframe named fadeIn, use animation ease-in and repeat it only 1 time *!*/
-    /*-moz-animation:fadeIn ease-in 1;*/
-    /*animation:fadeIn ease-in 1;*/
-
-    /*-webkit-animation-fill-mode:forwards;  !* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*!*/
-    /*-moz-animation-fill-mode:forwards;*/
-    /*animation-fill-mode:forwards;*/
-
-    /*-webkit-animation-duration:1s;*/
-    /*-moz-animation-duration:1s;*/
-    /*animation-duration:1s;*/
 }
