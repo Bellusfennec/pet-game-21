@@ -16,7 +16,7 @@ const resultInfo = document.createElement('div')
 const info = document.querySelector('.info')
 const addBtn = document.querySelector('#add-btn')
 const stopBtn = document.querySelector('#stop-btn')
-const reBtn = document.querySelector('#re-btn')
+const selectCreditBtn = document.querySelector('#select-credit-btn')
 const selectRateBtn = document.querySelector('#select-rate-btn')
 const closePopupBtn = document.querySelectorAll('.close-popup-btn')
 
@@ -27,12 +27,12 @@ let dealerStop = 0
 let player = []
 let stop = 0
 let newGame= 0
-
+let credit = 0
 
 
 balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
 screens.classList.add('hide')
-reBtn.classList.add('hide')
+selectCreditBtn.classList.add('hide')
 selectRateBtn.classList.add('hide')
 // resultPopup.classList.add('hide')
 
@@ -42,19 +42,19 @@ function dealerMove() {
         if (getSum(dealer) < getSum(player) && getSum(dealer) < 21 && getSum(player) < 21) {
             getCardFor(dealer)
             resultInfo.innerHTML = `Дилер берет карты.`
+        } else if (dealer.length <= 1 && dealerStop !== 1 && newGame === 1) {
+            getCardFor(dealer)
+            resultInfo.innerHTML = `Дилер берет карты.`
         } else if (stop === 1 || getSum(player) >= 21 || getSum(dealer) >= 21) {
             dealerStop = 1
             newGame = 0
             getCheck(getSum(dealer), getSum(player), stop)
             resultInfo.innerHTML = `Игра окончена.`
             clearInterval(dealerMove)
-        }  else if (dealer.length <= 1 && dealerStop !== 1 && newGame === 1) {
-            getCardFor(dealer)
-            resultInfo.innerHTML = `Дилер берет карты.`
         } else {
             resultInfo.innerHTML = `Дилер ждет.`
         }
-    }, 3000)
+    }, getRandomNumber(1500, 3000))
 }
 
 rateList.addEventListener('click', event => {
@@ -74,6 +74,7 @@ rateList.addEventListener('click', event => {
              resultPopup.append(resultInfo)
              ratePopupInfo.innerHTML = ``
              newGame = 1
+
              dealerMove()
          }
          ratePopup.append(ratePopupInfo)
@@ -92,7 +93,7 @@ stopBtn.addEventListener('click', () => {
     stop = 1
 })
 
-reBtn.addEventListener('click', () => {
+selectRateBtn.addEventListener('click', () => {
 
     dealer = []
     player = []
@@ -105,12 +106,44 @@ reBtn.addEventListener('click', () => {
     playerCards.innerHTML = `${player}`
     playerInfo.innerHTML = `Вы`
 
-    reBtn.classList.add('hide')
+    selectRateBtn.classList.add('hide')
     addBtn.classList.remove('hide')
     stopBtn.classList.remove('hide')
     ratePopup.classList.remove('hide')
     screens.classList.add('hide')
     info.classList.remove('hide')
+})
+
+selectCreditBtn.addEventListener('click', () => {
+    const resultInfo = document.createElement('div')
+    resultInfo.classList.add('result-info')
+
+    credit -= 10
+    resultInfo.innerHTML = `Ваш долг ${credit} &#8381;.`
+    resultPopup.append(resultInfo)
+
+    balance += 10
+    balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
+
+    dealer = []
+    player = []
+    dealerStop = 0
+    stop = 0
+
+    dealerCards.innerHTML = `${dealer}`
+    dealerInfo.innerHTML = `Дилер`
+
+    playerCards.innerHTML = `${player}`
+    playerInfo.innerHTML = `Вы`
+
+    selectCreditBtn.classList.add('hide')
+    addBtn.classList.remove('hide')
+    stopBtn.classList.remove('hide')
+    ratePopup.classList.remove('hide')
+    screens.classList.add('hide')
+    info.classList.remove('hide')
+
+
 })
 
 function getRandomNumber(min, max) {
@@ -177,14 +210,14 @@ function getCheck(dealerSum, playerSum, stop = 0) {
 
     function getStyle() {
         if (balance <= 0) {
-            resultInfo.classList.add('red')
             resultInfo.innerHTML = `Вы банкрот.`
+            selectCreditBtn.classList.remove('hide')
             addBtn.classList.add('hide')
             stopBtn.classList.add('hide')
         } else {
             addBtn.classList.add('hide')
             stopBtn.classList.add('hide')
-            reBtn.classList.remove('hide')
+            selectRateBtn.classList.remove('hide')
             clearInterval(dealerMove)
         }
     }
