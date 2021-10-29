@@ -5,14 +5,17 @@
     <title>Black Jack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/0305b441e1.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div id="game">
+
     <div id="score">
         <div class="balance">Баланс: 0 &#8381;</div>
         <div class="rate">Ставка: 0 &#8381;</div>
     </div>
+
     <div class="rate-popup">
         <div>Выберите ставку</div>
         <ul class="rate-list" id="rate-list">
@@ -22,6 +25,7 @@
         </ul>
         <div class="not-founds"></div>
     </div>
+
     <div class="screen">
 
         <div id="board">
@@ -30,12 +34,23 @@
             <div class="player-cards"></div>
             <div class="player">Вы</div>
         </div>
+
         <div class="info">Хотите еще карту?</div>
         <button id="add-btn">Взять карту</button>
         <button id="stop-btn">Стоп</button>
         <button id="re-btn">Новая игра</button>
-        <div class="result"></div>
+        <button id="select-rate-btn">Выбрать ставку</button>
+
+        <div class="result-popup"></div>
     </div>
+
+<!--    <div class="result-popup">-->
+<!--        <div class="header">-->
+<!--            <div class="title">Результат</div>-->
+<!--            <button class="close-popup-btn"><i class="fas fa-times"></i></button>-->
+<!--        </div>-->
+<!--    </div>-->
+
 </div>
 <script src="app.js"></script>
 </body>
