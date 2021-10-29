@@ -20,7 +20,7 @@ const selectCreditBtn = document.querySelector('#select-credit-btn')
 const selectRateBtn = document.querySelector('#select-rate-btn')
 const closePopupBtn = document.querySelectorAll('.close-popup-btn')
 
-let balance = 5
+let balance = 10
 let rate = 0
 let dealer = []
 let dealerStop = 0
