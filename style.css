@@ -93,7 +93,8 @@ button:focus {
 #rate-list li:last-of-type {
     margin-right: 0;
 }
-.rate-popup {
+.rate-popup/*,*/
+/*.result-popup*/  {
     box-sizing: border-box;
     position: fixed;
     top: 50%;
@@ -110,6 +111,35 @@ button:focus {
 .not-founds {
     font-size: .7em;
     color: red;
+}
+.result-popup {
+    text-align: center;
+    flex-direction: column-reverse;
+    display: flex;
+}
+.result-popup .result-info:last-of-type {
+    font-size: 1.2rem;
+}
+.result-popup .header {
+    display: flex;
+}
+.result-popup .header>i {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+}
+.result-popup .header>.fa-times {
+    cursor: pointer;
+    color: #3f3f3f;
+    font-size: 1.5em;
+    opacity: 0.8;
+}
+.result-popup .header>.fa-times:hover {
+    opacity: 1;
+}
+.result-popup .time {
+    font-size: .9rem;
+    color: black;
 }
 .dealer-cards,
 .player-cards {
