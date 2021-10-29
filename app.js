@@ -48,6 +48,7 @@ function dealerMove() {
         } else if (stop === 1 || getSum(player) >= 21 || getSum(dealer) >= 21) {
             dealerStop = 1
             newGame = 0
+            info.classList.add('hide')
             getCheck(getSum(dealer), getSum(player), stop)
             resultInfo.innerHTML = `Игра окончена.`
             clearInterval(dealerMove)
