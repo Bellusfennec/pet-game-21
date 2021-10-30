@@ -146,7 +146,7 @@ button:focus {
     display: flex;
 }
 .card {
-   width: 2.5rem;
+    height: 3.3rem;
     flex: 1;
     background-size: cover;
     background-position: center;
