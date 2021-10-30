@@ -225,10 +225,10 @@ function getCardFor(name) {
     rank = name[name.length - 1].split('_of_')[0]
     suit = name[name.length - 1].split('_of_')[1]
     if (name === dealer) {
-        dealerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
+        dealerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
         dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
     }  else if (name === player) {
-        playerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
+        playerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
         playerInfo.innerHTML = `Вы (${getSum(player)}).`
     }
 }
