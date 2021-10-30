@@ -18,7 +18,6 @@ const addBtn = document.querySelector('#add-btn')
 const stopBtn = document.querySelector('#stop-btn')
 const selectCreditBtn = document.querySelector('#select-credit-btn')
 const selectRateBtn = document.querySelector('#select-rate-btn')
-const closePopupBtn = document.querySelectorAll('.close-popup-btn')
 
 let balance = 10
 let rate = 0
@@ -28,13 +27,13 @@ let player = []
 let stop = 0
 let newGame= 0
 let credit = 0
+let deck = []
 
 
 balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
 screens.classList.add('hide')
 selectCreditBtn.classList.add('hide')
 selectRateBtn.classList.add('hide')
-// resultPopup.classList.add('hide')
 
 function dealerMove() {
     const dealerMove = setInterval(() => {
@@ -76,6 +75,8 @@ rateList.addEventListener('click', event => {
              ratePopupInfo.innerHTML = ``
              newGame = 1
 
+             deck = getShuffle(getDeck())
+
              dealerMove()
          }
          ratePopup.append(ratePopupInfo)
@@ -95,85 +96,80 @@ stopBtn.addEventListener('click', () => {
 })
 
 selectRateBtn.addEventListener('click', () => {
+    getGameNew()
+    ratePopup.classList.remove('hide')
+    screens.classList.add('hide')
+})
 
+function getGameNew() {
     dealer = []
     player = []
     dealerStop = 0
     stop = 0
-
     dealerCards.innerHTML = `${dealer}`
     dealerInfo.innerHTML = `Дилер`
-
     playerCards.innerHTML = `${player}`
     playerInfo.innerHTML = `Вы`
-
     selectRateBtn.classList.add('hide')
     addBtn.classList.remove('hide')
     stopBtn.classList.remove('hide')
-    ratePopup.classList.remove('hide')
-    screens.classList.add('hide')
     info.classList.remove('hide')
-})
+}
 
 selectCreditBtn.addEventListener('click', () => {
     const resultInfo = document.createElement('div')
     resultInfo.classList.add('result-info')
-
     credit -= 10
     resultInfo.innerHTML = `Ваш долг ${credit} &#8381;.`
     resultPopup.append(resultInfo)
-
     balance += 10
     balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
-
-    dealer = []
-    player = []
-    dealerStop = 0
-    stop = 0
-
-    dealerCards.innerHTML = `${dealer}`
-    dealerInfo.innerHTML = `Дилер`
-
-    playerCards.innerHTML = `${player}`
-    playerInfo.innerHTML = `Вы`
-
+    getGameNew()
     selectCreditBtn.classList.add('hide')
-    addBtn.classList.remove('hide')
-    stopBtn.classList.remove('hide')
     ratePopup.classList.remove('hide')
     screens.classList.add('hide')
-    info.classList.remove('hide')
-
-
 })
 
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (min - max) + max)
 }
 
-function getCard() {
-    const cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-    const types = ["&clubs", "&diamonds", "&hearts", "&spades"]
-    return cards[getRandomNumber(0, cards.length - 1)] + types[getRandomNumber(0, types.length - 1)]
+function getDeck() {
+    const deck = []
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+    const suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+
+    suits.forEach(function(suit) {
+        values.forEach(function (value) {
+            deck.push(`${value}_of_${suit}`)
+        })
+    })
+    return deck
 }
 
-
-function contains(arr, elem) {
-    return arr.indexOf(elem) !== -1;
+function getShuffle(array){
+    let j, temp;
+    for(let i = array.length - 1; i > 0; i--){
+        j = Math.floor(Math.random() * (i + 1));
+        temp = array[j];
+        array[j] = array[i];
+        array[i] = temp;
+    }
+    return array;
 }
 
 function getSum(hand) {
     let sum = 0
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
-        card = card.split('&')[0]
-        if (card.split('&')[0] !== 'Ace') {
+        card = card.split('_of_')[0]
+        if (card.split('_of_')[0] !== 'Ace') {
             if (card === 'Jack' || card === 'Queen' || card === 'King') {
                 sum = sum + 10
             } else {
                 sum = sum + parseInt(card)
             }
-        } else if (card.split('&')[0] === 'Ace') {
+        } else if (card.split('_of_')[0] === 'Ace') {
             if (sum > 10) {
                 sum = sum + 1
             } else {
@@ -185,14 +181,12 @@ function getSum(hand) {
 }
 
 function getCheck(dealerSum, playerSum, stop = 0) {
-
     const resultInfo = document.createElement('div')
     resultInfo.classList.add('result-info')
-
     if (dealerSum === playerSum && stop === 1 || playerSum === 21 && dealerSum === 21){
         resultInfo.innerHTML = `Ничья.`
         getStyle()
-    } else if (dealerSum < playerSum && dealerSum <= 21 && stop === 1 || dealerSum > 21){
+    } else if (playerSum > dealerSum && playerSum <= 21 && stop === 1 || dealerSum > 21){
         resultInfo.innerHTML = `Вы выиграли!`
         resultInfo.classList.add('green')
         balanceInfo.innerHTML = `Баланс: ${balance = balance+rate} &#8381;`
@@ -222,40 +216,26 @@ function getCheck(dealerSum, playerSum, stop = 0) {
             clearInterval(dealerMove)
         }
     }
-
     resultPopup.append(resultInfo)
 }
 
 function getCardFor(name) {
-    let rank = ''
-    let suit = ''
+    let rank, suit
+    newCard(name, deck)
+    rank = name[name.length - 1].split('_of_')[0]
+    suit = name[name.length - 1].split('_of_')[1]
     if (name === dealer) {
-        newCard(dealer)
-        rank = dealer[dealer.length - 1].split('&')[0]
-        suit = dealer[dealer.length - 1].split('&')[1]
         dealerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
         dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
     }  else if (name === player) {
-        newCard(player)
-        rank = player[player.length - 1].split('&')[0]
-        suit = player[player.length - 1].split('&')[1]
         playerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="">`
         playerInfo.innerHTML = `Вы (${getSum(player)}).`
     }
 }
 
-function newCard(array) {
-    let a = getCard()
-    let i=0
-    while (i < 1) {
-        if (contains(array, a) === false) {
-            array.push(a)
-            i++
-            return array
-        } else if (array.length === 52) {
-            i++
-        } else {
-            a = getCard()
-        }
+function newCard(name, deck) {
+    if (deck.length >= 1) {
+        name.push(deck.pop())
+        return name
     }
 }
