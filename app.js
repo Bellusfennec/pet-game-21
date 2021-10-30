@@ -137,7 +137,7 @@ function getRandomNumber(min, max) {
 function getDeck() {
     const deck = []
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-    const suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    const suits = ["clubs", "diamonds", "hearts", "spades"]
 
     suits.forEach(function(suit) {
         values.forEach(function (value) {
