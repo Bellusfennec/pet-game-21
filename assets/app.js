@@ -22,37 +22,27 @@ const selectRateBtn = document.querySelector('#select-rate-btn')
 let balance = 10
 let rate = 0
 let dealer = []
-let dealerStop = 0
 let player = []
-let stop = 0
+let playerStop = 0
 let newGame= 0
 let credit = 0
 let deck = []
-
+let dealerMove
 
 balanceInfo.innerHTML = `Баланс: ${balance} &#8381;`
 screens.classList.add('hide')
 selectCreditBtn.classList.add('hide')
 selectRateBtn.classList.add('hide')
 
-function dealerMove() {
-    const dealerMove = setInterval(() => {
+function dealerMove1() {
+    dealerMove = setInterval(() => {
 
-        if (getSum(dealer) < getSum(player) && getSum(dealer) < 21 && getSum(player) < 21) {
+        if (getSum(dealer) < getSum(player) && getSum(dealer) < 21 && getSum(player) < 21 || dealer.length <= 1 && newGame === 1) {
             getCardFor(dealer)
             resultInfo.innerHTML = `Дилер берет карты.`
-        } else if (dealer.length <= 1 && dealerStop !== 1 && newGame === 1) {
-            getCardFor(dealer)
-            resultInfo.innerHTML = `Дилер берет карты.`
-        } else if (stop === 1 || getSum(player) >= 21 || getSum(dealer) >= 21) {
-            dealerStop = 1
-            newGame = 0
-            info.classList.add('hide')
-            getCheck(getSum(dealer), getSum(player), stop)
-            resultInfo.innerHTML = `Игра окончена.`
-            clearInterval(dealerMove)
         } else {
             resultInfo.innerHTML = `Дилер ждет.`
+            getCheck(getSum(dealer), getSum(player), playerStop)
         }
     }, getRandomNumber(1500, 3000))
 }
@@ -77,7 +67,7 @@ rateList.addEventListener('click', event => {
 
              deck = getShuffle(getDeck())
 
-             dealerMove()
+             dealerMove1()
          }
          ratePopup.append(ratePopupInfo)
      }
@@ -92,7 +82,7 @@ stopBtn.addEventListener('click', () => {
     addBtn.classList.add('hide')
     stopBtn.classList.add('hide')
     info.classList.add('hide')
-    stop = 1
+    playerStop = 1
 })
 
 selectRateBtn.addEventListener('click', () => {
@@ -104,8 +94,7 @@ selectRateBtn.addEventListener('click', () => {
 function getGameNew() {
     dealer = []
     player = []
-    dealerStop = 0
-    stop = 0
+    playerStop = 0
     dealerCards.innerHTML = `${dealer}`
     dealerInfo.innerHTML = `Дилер`
     playerCards.innerHTML = `${player}`
@@ -180,23 +169,28 @@ function getSum(hand) {
     return sum
 }
 
-function getCheck(dealerSum, playerSum, stop = 0) {
+function getCheck(dealerSum, playerSum, playerStop = 0) {
+
+    newGame = 0
+    info.classList.add('hide')
+
     const resultInfo = document.createElement('div')
     resultInfo.classList.add('result-info')
-    if (dealerSum === playerSum && stop === 1 || playerSum === 21 && dealerSum === 21){
+
+    if (getSum(dealer) === getSum(player) && playerStop === 1 || getSum(player) === 21 && getSum(dealer) === 21){
         resultInfo.innerHTML = `Ничья.`
         getStyle()
-    } else if (playerSum > dealerSum && playerSum <= 21 && stop === 1 || dealerSum > 21){
+    } else if (getSum(player) > getSum(dealer) && getSum(player) <= 21 && playerStop === 1 || getSum(dealer) > 21){
         resultInfo.innerHTML = `Вы выиграли!`
         resultInfo.classList.add('green')
         balanceInfo.innerHTML = `Баланс: ${balance = balance+rate} &#8381;`
         getStyle()
-    } else if (dealerSum > playerSum && dealerSum <= 21 && stop === 1 || playerSum > 21 || dealerSum === 21) {
+    } else if (getSum(dealer) > getSum(player) && getSum(dealer) <= 21 && playerStop === 1 || getSum(player) > 21 || getSum(dealer) === 21) {
         resultInfo.innerHTML = `Вы проиграли.`
         resultInfo.classList.add('red')
         balanceInfo.innerHTML = `Баланс: ${balance = balance-rate} &#8381;`
         getStyle()
-    } else if (playerSum === 21 && dealerSum !== 21) {
+    } else if (getSum(player) === 21 && getSum(dealer) !== 21) {
         resultInfo.innerHTML = `Black Jack!`
         resultInfo.classList.add('green')
         balanceInfo.innerHTML = `Баланс: ${balance = balance+rate} &#8381;`
@@ -209,6 +203,7 @@ function getCheck(dealerSum, playerSum, stop = 0) {
             selectCreditBtn.classList.remove('hide')
             addBtn.classList.add('hide')
             stopBtn.classList.add('hide')
+            clearInterval(dealerMove)
         } else {
             addBtn.classList.add('hide')
             stopBtn.classList.add('hide')
@@ -225,10 +220,10 @@ function getCardFor(name) {
     rank = name[name.length - 1].split('_of_')[0]
     suit = name[name.length - 1].split('_of_')[1]
     if (name === dealer) {
-        dealerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
+        dealerCards.innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
         dealerInfo.innerHTML = `Дилер (${getSum(dealer)}).`
     }  else if (name === player) {
-        playerCards.innerHTML += `<img class="card" src="cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
+        playerCards.innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
         playerInfo.innerHTML = `Вы (${getSum(player)}).`
     }
 }
