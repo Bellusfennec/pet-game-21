@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    background: #fff;
+    background-size: 400% 400%;
+    height: 100%;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+@media screen and (max-width: 768px){
+    html,
+    body {
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 576px){
+    html,
+    body {
+        font-size: 20px;
+    }
+}
+button {
+    background: rgba(234, 252, 252, 0.3);
+    cursor: pointer;
+    color: black;
+    font-size: 1em;
+    font-family: inherit;
+    outline: none;
+    padding: .3em .6em;
+    margin: .5em .5em .5em 0;
+    border: dimgrey 1px solid;
+    border-radius: .5em;
+    white-space: nowrap;
+}
+button:last-of-type {
+    margin-right: 0;
+}
+button:hover,
+button:focus {
+    border-color: rgb(144, 152, 161);
+    box-shadow: 0 -14px 7px -12px #fddae0 inset;
+    outline: 0;
+}
+#game {
+    width: 100%;
+    padding: .5em;
+    box-sizing: border-box;
+}
+#board {
+    align-items: center;
+    background: radial-gradient( #63be41, #76b95e);
+    border: #282828 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: .5rem 0;
+    height: 13rem;
+    /*width: 100%;*/
+    padding: .5rem;
+    box-sizing: border-box;
+}
+.screen {
+    text-align: center;
+}
+#score {
+    display: flex;
+    justify-content: space-between;
+}
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+.hide {
+    display: none;
+    transition: all 1s;
+}
+#rate-list {
+    list-style: none;
+    display: flex;
+}
+#rate-list button {
+    margin-right: 0;
+}
+#rate-list li {
+    margin-right: .5rem;
+}
+#rate-list li:last-of-type {
+    margin-right: 0;
+}
+.rate-popup/*,*/
+/*.result-popup*/  {
+    box-sizing: border-box;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: #C0C0C0 0 0 1rem .5rem;
+}
+.rate-popup>div {
+    text-align: center;
+}
+.not-founds {
+    font-size: .7em;
+    color: red;
+}
+.result-popup {
+    text-align: center;
+    flex-direction: column-reverse;
+    display: flex;
+}
+.result-popup .result-info:last-of-type {
+    font-size: 1.2rem;
+}
+.result-popup .header {
+    display: flex;
+}
+.result-popup .header>i {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+}
+.result-popup .header>.fa-times {
+    cursor: pointer;
+    color: #3f3f3f;
+    font-size: 1.5em;
+    opacity: 0.8;
+}
+.result-popup .header>.fa-times:hover {
+    opacity: 1;
+}
+.result-popup .time {
+    font-size: .9rem;
+    color: black;
+}
+.dealer-cards,
+.player-cards {
+    display: flex;
+}
+.card {
+    height: 3.3rem;
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    opacity: 1;
+}
+.card + .card {
+    margin-left: .5rem;
+}
