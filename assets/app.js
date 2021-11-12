@@ -20,7 +20,7 @@ const stopBtn = document.querySelector('#stop-btn')
 const selectCreditBtn = document.querySelector('#select-credit-btn')
 const selectRateBtn = document.querySelector('#select-rate-btn')
 
-let balance = 10000000
+let balance = 100
 getBalance(balance)
 
 let rate = 0
