@@ -114,6 +114,7 @@ stopBtn.addEventListener('click', () => {
 
 selectRateBtn.addEventListener('click', () => {
     ratePopup.classList.remove('hide')
+    selectRateBtn.classList.add('hide')
 })
 
 function getBalance(balance) {
