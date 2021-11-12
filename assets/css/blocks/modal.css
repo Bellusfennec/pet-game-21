@@ -1,0 +1,20 @@
+.rate-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: #C0C0C0 0 0 1rem 0.5rem;
+  z-index: 10;
+}
+.rate-popup > .header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.not-founds {
+  font-size: 1em;
+  color: red;
+}
+/*# sourceMappingURL=modal.css.map */

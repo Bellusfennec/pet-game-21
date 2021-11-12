@@ -1,0 +1,334 @@
+@font-face {
+  font-family: ManropeExtraBold;
+  src: url('../fonts/Manrope/static/Manrope-ExtraBold.ttf');
+}
+@font-face {
+  font-family: Manrope;
+  src: url('../fonts/Manrope/static/Manrope-Regular.ttf');
+}
+.i {
+  position: absolute;
+  left: 50%;
+  transform: translate(50%, 0%);
+  height: 100vh;
+  width: 1px;
+  background: #b20202;
+  z-index: 10;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  background: #fff;
+  background-size: 400% 400%;
+  height: 100%;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: 'Manrope', sans-serif;
+  background: radial-gradient(#61a242 50%, #365e24);
+}
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 576px) {
+  html,
+  body {
+    font-size: 20px;
+  }
+}
+button {
+  background: white;
+  cursor: pointer;
+  color: black;
+  font-size: 1em;
+  font-family: inherit;
+  outline: none;
+  padding: 0.5em 1em;
+  margin: 0 0 0.5em 0.5em;
+  border: #ffd600 0.2rem solid;
+  border-radius: 1em;
+  white-space: nowrap;
+  box-shadow: 0 8px 15px #9098a1;
+  transition: all 0.3s ease 0s;
+}
+button:hover,
+button:focus {
+  outline: 0;
+}
+button:hover {
+  box-shadow: 0 15px 20px #fff132;
+}
+#stop-btn {
+  background: radial-gradient(#ff1154 50%, #b20202);
+  color: white;
+}
+#add-btn {
+  background: radial-gradient(#2cbb15 50%, #158302);
+  color: white;
+}
+/* --- WRAPS --- */
+#game {
+  width: 100%;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+#board {
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 10rem;
+  box-sizing: border-box;
+}
+/* --- CARDS --- */
+.dealer,
+.player {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.dealer {
+  margin-bottom: 1.5rem;
+}
+.player {
+  margin-bottom: 1.5rem;
+}
+.dealer-cards,
+.player-cards {
+  display: flex;
+  margin-left: 2.5rem;
+  order: 1;
+  height: 4rem;
+}
+.card {
+  height: 4rem;
+}
+.card + .card {
+  margin-left: -2rem;
+}
+.sum {
+  align-self: start;
+  order: 2;
+  position: relative;
+  right: 1rem;
+  top: -0.5rem;
+  background: #4b9b13;
+  font-family: 'ManropeExtraBold', sans-serif;
+  color: white;
+  border: #3b592f 0.1rem solid;
+  font-size: 0.75rem;
+  border-radius: 1rem;
+  padding: 0.1rem 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.17) 0 0 1rem 0 inset;
+}
+#board .message-container {
+  display: inline-block;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  height: 1.5rem;
+  width: 0;
+}
+.animation {
+  animation: width 5s ease-in-out;
+}
+#board .message {
+  overflow: hidden;
+  white-space: nowrap;
+  color: #eaeaea;
+  border: #7A7A7A33 0.1rem solid;
+  font-size: 0.8rem;
+  background: #000000;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: rgba(122, 122, 122, 0.2) 0 0 0.3rem 0.01rem inset;
+}
+@keyframes width {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+/* --- PROFILE --- */
+#profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rate {
+  margin-bottom: 0.7rem;
+  border: #3c5737 0.1rem solid;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: #ffd600 0.1rem dashed;
+  font-size: 0.7em;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+.chip-red {
+  background: #b40000;
+}
+.chip-green {
+  background: #00b400;
+}
+.chip-black {
+  background: #000000;
+}
+.avatar {
+  box-sizing: content-box;
+  border: #888888 0.05rem solid;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 0.1rem;
+}
+.avatar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.balance {
+  background: #1a1a1a;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 2px 4px 0 inset;
+  width: 6rem;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.3rem 0.3rem 1.6rem;
+  border-radius: 1rem;
+  position: relative;
+}
+.currency {
+  position: absolute;
+  border: #ffd600 0.1rem dashed;
+  top: 0.2rem;
+  left: 0.2rem;
+  border-radius: 50%;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+.name {
+  color: white;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+/* --- RESULT --- */
+button#result {
+  text-align: left;
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0.5rem;
+  padding: 0;
+  font-size: 2rem;
+}
+/* --- COLORS --- */
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.hide {
+  display: none;
+  transition: all 1s;
+}
+/* --- RATE --- */
+#rate-list {
+  display: flex;
+}
+#rate-list button {
+  position: relative;
+  border-radius: 50%;
+  font-size: 1rem;
+  padding: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: white;
+  margin-bottom: 0;
+}
+#rate-list button:first-of-type {
+  margin-left: 0;
+}
+#rate-list button:nth-child(1) {
+  background: radial-gradient(#ff1154 50%, #b20202);
+}
+#rate-list button:nth-child(1):hover {
+  background: radial-gradient(#ff1154 35%, #b20202);
+}
+#rate-list button:nth-child(2) {
+  background: radial-gradient(#2cbb15 50%, #0b6000);
+}
+#rate-list button:nth-child(2):hover {
+  background: radial-gradient(#2cbb15 35%, #0b6000);
+}
+#rate-list button:nth-child(3) {
+  background: radial-gradient(#363636 50%, #000000);
+}
+#rate-list button:nth-child(3):hover {
+  background: radial-gradient(#363636 35%, #000000);
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: #C0C0C0 0 0 1rem 0.5rem;
+  z-index: 10;
+  text-align: left;
+}
+.modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.modal .title {
+  font-size: 1.2rem;
+}
+.modal .close {
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 2rem;
+}
+#result-modal {
+  width: 500px;
+  max-width: 75vw;
+  max-height: 75vh;
+  overflow: scroll;
+}
+.not-founds {
+  font-size: 1em;
+  color: red;
+}
+/*# sourceMappingURL=style.css.map */

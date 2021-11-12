@@ -4,51 +4,64 @@
     <meta charset="UTF-8">
     <title>21</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/icomoon/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div id="game">
 
-    <div id="score">
-        <div class="balance">Баланс: 0 &#8381;</div>
-        <div class="rate">Ставка: 0 &#8381;</div>
+    <button id="result" class="icon-bubble2"></button>
+
+    <div id="board">
+        <div class="dealer">
+            <div class="dealer-cards"></div>
+            <div class="sum hide"></div>
+        </div>
+        <div class="message-container"><span class="message"></span></div>
+        <div class="player">
+            <div class="player-cards"></div>
+            <div class="sum hide"></div>
+        </div>
     </div>
 
-    <div class="rate-popup">
-        <div>Выберите ставку</div>
-        <ul class="rate-list" id="rate-list">
-            <li><button class="rate-btn" data-rate="5">5 &#8381;</button></li>
-            <li><button class="rate-btn" data-rate="25">25 &#8381;</button></li>
-            <li><button class="rate-btn" data-rate="100">100 &#8381;</button></li>
-        </ul>
+    <div id="profile">
+        <div class="rate"></div>
+        <div class="avatar"><img src="assets/images/avatarka.jpg" alt=""></div>
+        <div class="balance"></div>
+        <div class="name">Вы</div>
+    </div>
+
+    <button id="stop-btn">Стоп</button>
+    <button id="add-btn">Взять карту</button>
+    <button id="select-credit-btn">Взять в долг</button>
+    <button id="select-rate-btn">Выбрать ставку</button>
+
+    <div id="result-modal" class="modal hide">
+        <div class="modal-header">
+            <span class="title">Результаты</span>
+<!--            <span class="close">&times;</span>-->
+        </div>
+        <div class="modal-body">
+            Побед: <span class="win"></span><br>
+            Поражений: <span class="defeat"></span><br>
+            Ничья: <span class="draw"></span><br>
+        </div>
+        <div class="modal-footer"></div>
+    </div>
+
+    <div id="rate-modal" class="modal">
+        <div class="header">Выберите ставку</div>
+        <div id="rate-list">
+            <button class="rate-btn" data-rate="5">5 &#8381;</button>
+            <button class="rate-btn" data-rate="25">25 &#8381;</button>
+            <button class="rate-btn" data-rate="100">100 &#8381;</button>
+        </div>
         <div class="not-founds"></div>
     </div>
-
-    <div class="screen">
-
-        <div id="board">
-            <div class="dealer">Дилер</div>
-            <div class="dealer-cards"></div>
-            <div class="player-cards"></div>
-            <div class="player">Вы</div>
-        </div>
-
-        <div class="info">Хотите еще карту?</div>
-        <button id="add-btn">Взять карту</button>
-        <button id="stop-btn">Стоп</button>
-        <button id="select-credit-btn">Взять в долг</button>
-        <button id="select-rate-btn">Выбрать ставку</button>
-
-        <div class="result-popup"></div>
-    </div>
-
-<!--    <div class="result-popup">-->
-<!--        <div class="header">-->
-<!--            <div class="title">Результат</div>-->
-<!--            <button class="close-popup-btn"><i class="fas fa-times"></i></button>-->
-<!--        </div>-->
-<!--    </div>-->
 
 </div>
 <script src="assets/app.js"></script>
