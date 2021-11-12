@@ -94,10 +94,10 @@ button:hover {
   justify-content: center;
 }
 .dealer {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 .player {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 .dealer-cards,
 .player-cards {
@@ -130,8 +130,8 @@ button:hover {
 #board .message-container {
   display: inline-block;
   overflow: hidden;
-  margin-bottom: 1.5rem;
-  height: 1.5rem;
+  margin-bottom: 1rem;
+  height: 1.6rem;
   width: 0;
 }
 .animation {
@@ -238,14 +238,8 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 /* --- RESULT --- */
-button#result {
-  text-align: left;
-  background: none;
-  border: none;
-  box-shadow: none;
-  border-radius: 0.5rem;
-  padding: 0;
-  font-size: 2rem;
+#result {
+  padding: 0.7rem 1rem;
 }
 /* --- COLORS --- */
 .green {
@@ -320,12 +314,6 @@ button#result {
   cursor: pointer;
   padding: 0;
   line-height: 2rem;
-}
-#result-modal {
-  width: 500px;
-  max-width: 75vw;
-  max-height: 75vh;
-  overflow: scroll;
 }
 .not-founds {
   font-size: 1em;
