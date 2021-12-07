@@ -7,28 +7,51 @@ button {
   outline: none;
   padding: 0.5em 1em;
   margin: 0 0 0.5em 0.5em;
-  border: #ffd600 0.2rem solid;
   border-radius: 1em;
   white-space: nowrap;
-  box-shadow: 0 8px 15px #9098a1;
-  transition: all 0.3s ease 0s;
-}
-button:first-of-type {
-  margin-left: 0;
+  border: none;
 }
 button:hover,
 button:focus {
   outline: 0;
 }
-button:hover {
-  box-shadow: 0 15px 20px #fff132;
+.button4 {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, Helvetica, FreeSans, "Liberation Sans", "Nimbus Sans L", sans-serif;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #f5f5f5;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #98ff98, #3caa3c 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
+  -webkit-animation: pulsate 1.2s linear infinite;
+  animation: pulsate 1.2s linear infinite;
 }
-#stop-btn {
-  background: radial-gradient(#ff1154 50%, #b20202);
-  color: white;
+.button4:hover {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  cursor: pointer;
 }
-#add-btn {
-  background: radial-gradient(#2cbb15 50%, #158302);
-  color: white;
+.button4:active {
+  top: 1px;
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px #fff, inset 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
-/*# sourceMappingURL=button.css.map */
+@-webkit-keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}

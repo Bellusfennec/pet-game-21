@@ -48,29 +48,46 @@ button {
   color: black;
   font-size: 1em;
   font-family: inherit;
-  outline: none;
   padding: 0.5em 1em;
   margin: 0 0 0.5em 0.5em;
-  border: #ffd600 0.2rem solid;
-  border-radius: 1em;
   white-space: nowrap;
-  box-shadow: 0 8px 15px #9098a1;
-  transition: all 0.3s ease 0s;
+  border: none;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  display: inline-block;
 }
-button:hover,
-button:focus {
-  outline: 0;
+.button__mod {
+  font-weight: 700;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5em;
+  border: #d4d000 3px solid;
 }
-button:hover {
-  box-shadow: 0 15px 20px #fff132;
+.button__mod:hover {
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
 }
-#stop-btn {
-  background: radial-gradient(#ff1154 50%, #b20202);
+.button__mod:active {
+  top: 1px;
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px #fff, inset 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+.button__green {
   color: white;
+  background: #0c9c0d;
+  box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #9fff98, #3caa3c 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
 }
-#add-btn {
-  background: radial-gradient(#2cbb15 50%, #158302);
+.button__red {
   color: white;
+  background: #9c0c0c;
+  box-shadow: inset #de2626 0 -1px 1px, inset 0 1px 1px #ff9898, #aa3c3c 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
+}
+.button__blue {
+  color: white;
+  background: #0c4f9c;
+  box-shadow: inset #2670de 0 -1px 1px, inset 0 1px 1px #98b9ff, #3c75aa 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
 }
 /* --- WRAPS --- */
 #game {
@@ -242,50 +259,9 @@ button:hover {
   padding: 0.7rem 1rem;
 }
 /* --- COLORS --- */
-.green {
-  color: green;
-}
-.red {
-  color: red;
-}
 .hide {
   display: none;
   transition: all 1s;
-}
-/* --- RATE --- */
-#rate-list {
-  display: flex;
-}
-#rate-list button {
-  position: relative;
-  border-radius: 50%;
-  font-size: 1rem;
-  padding: 0;
-  width: 4.5rem;
-  height: 4.5rem;
-  color: white;
-  margin-bottom: 0;
-}
-#rate-list button:first-of-type {
-  margin-left: 0;
-}
-#rate-list button:nth-child(1) {
-  background: radial-gradient(#ff1154 50%, #b20202);
-}
-#rate-list button:nth-child(1):hover {
-  background: radial-gradient(#ff1154 35%, #b20202);
-}
-#rate-list button:nth-child(2) {
-  background: radial-gradient(#2cbb15 50%, #0b6000);
-}
-#rate-list button:nth-child(2):hover {
-  background: radial-gradient(#2cbb15 35%, #0b6000);
-}
-#rate-list button:nth-child(3) {
-  background: radial-gradient(#363636 50%, #000000);
-}
-#rate-list button:nth-child(3):hover {
-  background: radial-gradient(#363636 35%, #000000);
 }
 .modal {
   position: absolute;
@@ -322,4 +298,29 @@ button:hover {
   font-size: 1em;
   color: red;
 }
-/*# sourceMappingURL=style.css.map */
+/* --- RATE --- */
+#rate-list {
+  display: flex;
+}
+#rate-list button {
+  position: relative;
+  border-radius: 50%;
+  font-size: 1rem;
+  padding: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: white;
+  margin-bottom: 0;
+}
+#rate-list button:first-of-type {
+  margin-left: 0;
+}
+#rate-list button:nth-child(1) {
+  background: radial-gradient(#ff1154 20%, #b20202);
+}
+#rate-list button:nth-child(2) {
+  background: radial-gradient(#2cbb15 20%, #0b6000);
+}
+#rate-list button:nth-child(3) {
+  background: radial-gradient(#363636 20%, #000000);
+}
