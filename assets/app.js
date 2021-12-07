@@ -78,7 +78,7 @@ const dealerMakeMove = () => {
         } else if (!dealerWait) {
             dealerWait = true
         } else {
-            getCheck(getSum(dealer.card), getSum(dealer.card), playerStop)
+            getCheck()
         }
     }, getRandomNumber(1000, 1000))
 }
@@ -208,9 +208,9 @@ function getSum(hand) {
     return sum
 }
 
-function getCheck(playerStop = 0) {
+function getCheck() {
     newGame = 0
-
+    console.log(playerStop);
     if (getSum(dealer.card) === getSum(player.card) && playerStop === 1 || getSum(player.card) === 21 && getSum(dealer.card) === 21){
         getAnimationMessage('Ничья.')
         // resultDraw.innerHTML = ++draw
