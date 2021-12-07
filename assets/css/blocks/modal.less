@@ -1,3 +1,5 @@
+// main: ../style.css
+
 .modal {
   position: absolute;
   top: 50%;
@@ -26,19 +28,36 @@
   padding: 0;
   line-height: 2rem;
 }
-.modal .modal-body {
-
-}
-#result-modal {
-  //width: 500px;
-  //max-width: 75vw;
-  //max-height: 75vh;
-  //overflow: scroll;
-}
 #rate-modal .modal-header {
   justify-content: center;
 }
 .not-founds {
   font-size: 1em;
   color: red;
+}
+/* --- RATE --- */
+#rate-list {
+  display: flex;
+}
+#rate-list button {
+  position: relative;
+  border-radius: 50%;
+  font-size: 1rem;
+  padding: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: white;
+  margin-bottom: 0;
+}
+#rate-list button:first-of-type {
+  margin-left: 0;
+}
+#rate-list button:nth-child(1) {
+  background: radial-gradient(#ff1154 20%, #b20202);
+}
+#rate-list button:nth-child(2) {
+  background: radial-gradient(#2cbb15 20%, #0b6000);
+}
+#rate-list button:nth-child(3) {
+  background: radial-gradient(#363636 20%, #000000);
 }

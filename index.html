@@ -34,33 +34,33 @@
     </div>
 
 <!--    <button id="result" class="icon-bubble2"></button>-->
-    <button id="stop-btn">Стоп</button>
-    <button id="add-btn">Взять карту</button>
-    <button id="select-credit-btn">Взять в долг</button>
-    <button id="select-rate-btn">Выбрать ставку</button>
+    <button id="stop-btn" class="button__mod button__red">Стоп</button>
+    <button id="add-btn" class="button__mod button__green">Взять карту</button>
+    <button id="select-credit-btn" class="button__mod button__red">Взять в долг</button>
+    <button id="select-rate-btn" class="button__mod button__blue">Выбрать ставку</button>
 
 
     <div id="result-modal" class="modal hide">
-        <div class="modal-header">
+        <div class="modal__header">
             <span class="title">Результаты</span>
 <!--            <span class="close">&times;</span>-->
         </div>
-        <div class="modal-body">
+        <div class="modal__body">
             Побед: <span class="win"></span><br>
             Поражений: <span class="defeat"></span><br>
             Ничья: <span class="draw"></span><br>
         </div>
-        <div class="modal-footer"></div>
+        <div class="modal__footer"></div>
     </div>
 
     <div id="rate-modal" class="modal">
         <div class="modal-header">Выберите ставку</div>
-        <div id="rate-list">
-            <button class="rate-btn" data-rate="5">5 &#8381;</button>
-            <button class="rate-btn" data-rate="25">25 &#8381;</button>
-            <button class="rate-btn" data-rate="100">100 &#8381;</button>
+        <div id="rate-list" class="modal__body">
+            <button class="rate-btn" data-rate="5">5</button>
+            <button class="rate-btn" data-rate="25">25</button>
+            <button class="rate-btn" data-rate="100">100</button>
         </div>
-        <div class="not-founds"></div>
+        <div class="modal__footer"><span class="not-founds"></span></div>
     </div>
 
 </div>

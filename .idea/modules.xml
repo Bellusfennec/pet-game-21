@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/Desktop/01-cards-sources/.idea/01-cards-sources.iml" filepath="$USER_HOME$/Desktop/01-cards-sources/.idea/01-cards-sources.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/03-slider-sources/.idea/03-slider-sources.iml" filepath="$USER_HOME$/Desktop/03-slider-sources/.idea/03-slider-sources.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/04-board-sources/.idea/04-board-sources.iml" filepath="$USER_HOME$/Desktop/04-board-sources/.idea/04-board-sources.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/05-aim-game-sources/.idea/05-aim-game-sources.iml" filepath="$USER_HOME$/Desktop/05-aim-game-sources/.idea/05-aim-game-sources.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/javascript-2020-master/.idea/javascript-2020-master.iml" filepath="$USER_HOME$/Desktop/javascript-2020-master/.idea/javascript-2020-master.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/js/.idea/js.iml" filepath="$USER_HOME$/Desktop/js/.idea/js.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/sinergya/.idea/sinergya.iml" filepath="$USER_HOME$/Desktop/sinergya/.idea/sinergya.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/zerda.iml" filepath="$PROJECT_DIR$/.idea/zerda.iml" />
+    </modules>
+  </component>
+</project>

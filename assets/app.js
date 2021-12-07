@@ -1,7 +1,6 @@
 const ratePopup = document.querySelector('#rate-modal')
 const ratePopupInfo = document.querySelector('.not-founds')
 
-const rateList = document.querySelector('#rate-list')
 const rateInfo = document.querySelector('.rate')
 const balanceInfo = document.querySelector('.balance')
 
@@ -20,21 +19,39 @@ const stopBtn = document.querySelector('#stop-btn')
 const selectCreditBtn = document.querySelector('#select-credit-btn')
 const selectRateBtn = document.querySelector('#select-rate-btn')
 
-let balance = 100
-getBalance(balance)
-
 let rate = 0
-let dealerArray = []
-let playerArray = []
 let playerStop = 0
 let newGame= 0
-let credit = 0
 let deck = []
 let dealerMove
-let draw = 0
-let win = 0
-let defeat = 0
+let account = []
 
+const player = {
+    name: 'Вы',
+    card: [],
+    balance: 100,
+    credit: 0,
+    draw: 0,
+    win: 0,
+    defeat: 0,
+    winCount: function() {
+        return this.win++
+    }
+}
+
+if (localStorage.getItem('playerScore')) {
+    account = JSON.parse(localStorage.getItem('playerScore'))
+    player.balance = account[1]
+}
+
+
+const dealer = {
+    name: 'Дилер',
+    card: [],
+    balance: 100,
+}
+
+getBalance(player.balance)
 
 ratePopup.classList.add('hide')
 addBtn.classList.add('hide')
@@ -49,29 +66,29 @@ function getAnimationMessage(text) {
     }, 5000)
 }
 
-function dealerMove1() {
+const dealerMakeMove = () => {
     let dealerWait
     dealerMove = setInterval(() => {
 
-        if (getSum(dealerArray) < getSum(playerArray) && getSum(dealerArray) < 21 && getSum(playerArray) < 21 && dealerWait || dealerArray.length <= 0 && newGame === 1) {
+        if (getSum(dealer.card) < getSum(player.card) && getSum(dealer.card) < 21 && getSum(player.card) < 21 && dealerWait || dealer.card.length <= 0 && newGame === 1) {
 
-            getCardFor(dealerArray)
-            // getResultMessage('Дилер взял карту.')
+            getCardFor(dealer)
+
             dealerWait = false
         } else if (!dealerWait) {
-            // getResultMessage('Дилер ждёт.')
             dealerWait = true
         } else {
-            getCheck(getSum(dealerArray), getSum(playerArray), playerStop)
+            getCheck(getSum(dealer.card), getSum(dealer.card), playerStop)
         }
     }, getRandomNumber(1000, 1000))
 }
 
-rateList.addEventListener('click', event => {
+
+document.querySelector('#rate-list').addEventListener('click', event => {
      if (event.target.classList.contains('rate-btn')) {
         rate = parseInt(event.target.getAttribute('data-rate'))
 
-         if (balance < rate) {
+         if (player.balance < rate) {
              ratePopupInfo.innerHTML = `Недостаточно средств.`
          } else {
              if (rate === 5) {
@@ -81,29 +98,25 @@ rateList.addEventListener('click', event => {
              } else if (rate === 100) {
                  rateInfo.innerHTML = `<div class="chip chip-black">${rate}</div>`
              }
-             getBalance(balance)
+             getBalance(player.balance)
              ratePopup.classList.add('hide')
              getGameNew()
              getAnimationMessage('Началась новая игра.')
-             // message.innerHTML = `Началась новая игра.`
-             // document.querySelector('.message-container').classList.add('animation')
-             // setTimeout( () => {
-             //     document.querySelector('.message-container').classList.remove('animation')
-             // }, 5000)
 
              ratePopupInfo.innerHTML = ``
              newGame = 1
 
              deck = getShuffle(getDeck())
 
-             dealerMove1()
+             dealerMakeMove()
          }
          ratePopup.append(ratePopupInfo)
      }
 })
 
 addBtn.addEventListener('click', () => {
-    getCardFor(playerArray)
+    getCardFor(player)
+    
 })
 
 stopBtn.addEventListener('click', () => {
@@ -122,11 +135,11 @@ function getBalance(balance) {
 }
 
 function getGameNew() {
-    dealerArray = []
-    playerArray = []
+    dealer.card = []
+    player.card = []
     playerStop = 0
-    dealerCards.innerHTML = `${dealerArray}`
-    playerCards.innerHTML = `${playerArray}`
+    dealerCards.innerHTML = `${dealer.card}`
+    playerCards.innerHTML = `${player.card}`
     selectRateBtn.classList.add('hide')
     addBtn.classList.remove('hide')
     stopBtn.classList.remove('hide')
@@ -135,17 +148,14 @@ function getGameNew() {
 }
 
 selectCreditBtn.addEventListener('click', () => {
-    const resultInfo = document.createElement('div')
-    resultInfo.classList.add('result-info')
-    credit -= 10
-    resultInfo.innerHTML = `Ваш долг ${credit} &#8381;.`
-    resultContent.append(resultInfo)
-    balance += 10
-    getBalance(balance)
+    player.balance += 10
+    getBalance(player.balance)
     getGameNew()
     selectCreditBtn.classList.add('hide')
     ratePopup.classList.remove('hide')
     screens.classList.add('hide')
+    addBtn.classList.add('hide')
+    stopBtn.classList.add('hide')
 })
 
 function getRandomNumber(min, max) {
@@ -198,37 +208,33 @@ function getSum(hand) {
     return sum
 }
 
-function getCheck(dealerSum, playerSum, playerStop = 0) {
+function getCheck(playerStop = 0) {
     newGame = 0
 
-    if (getSum(dealerArray) === getSum(playerArray) && playerStop === 1 || getSum(playerArray) === 21 && getSum(dealerArray) === 21){
-        // message.innerHTML = `Ничья.`
+    if (getSum(dealer.card) === getSum(player.card) && playerStop === 1 || getSum(player.card) === 21 && getSum(dealer.card) === 21){
         getAnimationMessage('Ничья.')
-        resultDraw.innerHTML = ++draw
+        // resultDraw.innerHTML = ++draw
         getStyle()
-    } else if (getSum(playerArray) > getSum(dealerArray) && getSum(playerArray) <= 21 && playerStop === 1 || getSum(dealerArray) > 21){
-        // message.innerHTML = `Вы выиграли!`
+    } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && playerStop === 1 || getSum(dealer.card) > 21){
         getAnimationMessage('Вы выиграли!')
-        resultWin.innerHTML = ++win
-        balance += rate
+        resultWin.innerHTML = player.winCount
+        player.balance += rate
         getStyle()
-    } else if (getSum(dealerArray) > getSum(playerArray) && getSum(dealerArray) <= 21 && playerStop === 1 || getSum(playerArray) > 21 || getSum(dealerArray) === 21) {
-        // message.innerHTML = `Вы проиграли.`
+    } else if (getSum(dealer.card) > getSum(player.card) && getSum(dealer.card) <= 21 && playerStop === 1 || getSum(player.card) > 21 || getSum(dealer.card) === 21) {
         getAnimationMessage('Вы проиграли.')
-        resultDefeat.innerHTML = ++defeat
-        balance -= rate
+        // resultDefeat.innerHTML = ++defeat
+        player.balance -= rate
         getStyle()
-    } else if (getSum(playerArray) === 21 && getSum(dealerArray) !== 21) {
-        // message.innerHTML = `Black Jack!`
+    } else if (getSum(player.card) === 21 && getSum(dealer.card) !== 21) {
         getAnimationMessage('Black Jack!')
-        resultWin.innerHTML = ++win
-        balance += rate
+        // resultWin.innerHTML = ++win
+        player.balance += rate
         getStyle()
     }
 
     function getStyle() {
-        getBalance(balance)
-        if (balance <= 0) {
+        getBalance(player.balance)
+        if (player.balance <= 0) {
             message.innerHTML = `Вы банкрот.`
             selectCreditBtn.classList.remove('hide')
             addBtn.classList.add('hide')
@@ -241,18 +247,20 @@ function getCheck(dealerSum, playerSum, playerStop = 0) {
             clearInterval(dealerMove)
         }
     }
+    account = [player.name, player.balance]
+    localStorage.setItem('playerScore', JSON.stringify(account))
 }
 
 function getCardFor(name) {
     let rank, suit
-    getCardNew(name, deck)
-    rank = name[name.length - 1].split('_of_')[0]
-    suit = name[name.length - 1].split('_of_')[1]
+    getCardNew(name.card, deck)
+    rank = name.card[name.card.length - 1].split('_of_')[0]
+    suit = name.card[name.card.length - 1].split('_of_')[1]
     getCardSum()
-    if (name === dealerArray) {
+    if (name.name === 'Дилер') {
         sum[0].classList.remove('hide')
         dealerCards.innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
-    }  else if (name === playerArray) {
+    }  else if (name.name === 'Вы') {
         sum[1].classList.remove('hide')
         playerCards.innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
     }
@@ -264,14 +272,14 @@ function getCardNew(name, deck) {
         return name
     }
 }
+
 function getCardSum() {
     const sum = document.querySelectorAll('.sum')
-    sum[0].innerHTML = `${getSum(dealerArray)}`
-    sum[1].innerHTML = `${getSum(playerArray)}`
-
+    sum[0].innerHTML = `${getSum(dealer.card)}`
+    sum[1].innerHTML = `${getSum(player.card)}`
 }
 
-document.querySelector('#result').addEventListener('click', (event) => {
+document.querySelector('#result-modal').addEventListener('click', (event) => {
     if (event.target.classList.contains('icon-bubble2')) {
         event.target.classList.toggle('icon-bubble2')
         event.target.classList.add('icon-bubble')

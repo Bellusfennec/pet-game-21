@@ -1,20 +1,62 @@
-.rate-popup {
-  position: fixed;
+.modal {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
   background: white;
   border-radius: 0.5rem;
   box-shadow: #C0C0C0 0 0 1rem 0.5rem;
   z-index: 10;
+  text-align: left;
 }
-.rate-popup > .header {
-  text-align: center;
-  margin-bottom: 1rem;
+.modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.modal .title {
+  font-size: 1.2rem;
+}
+.modal .close {
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 2rem;
+}
+#rate-modal .modal-header {
+  justify-content: center;
 }
 .not-founds {
   font-size: 1em;
   color: red;
 }
-/*# sourceMappingURL=modal.css.map */
+/* --- RATE --- */
+#rate-list {
+  display: flex;
+}
+#rate-list button {
+  position: relative;
+  border-radius: 50%;
+  font-size: 1rem;
+  padding: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: white;
+  margin-bottom: 0;
+  border: #ffd600 0.1rem dashed;
+}
+#rate-list button:first-of-type {
+  margin-left: 0;
+}
+#rate-list button:nth-child(1) {
+  background: radial-gradient(#ff1154 20%, #b20202);
+}
+#rate-list button:nth-child(2) {
+  background: radial-gradient(#2cbb15 20%, #0b6000);
+}
+#rate-list button:nth-child(3) {
+  background: radial-gradient(#363636 20%, #000000);
+}
