@@ -359,7 +359,6 @@ button {
 }
 .card {
   position: relative;
-  font-size: 1rem;
   width: 3em;
   height: 4em;
   float: left;
@@ -367,19 +366,11 @@ button {
 }
 .card__rank {
   font-weight: bold;
-  font-size: 1.5em;
-  line-height: 0.9em;
-}
-.card__suits {
-  line-height: 0.8em;
-  font-size: 0.8em;
 }
 .card__icon__lg {
   position: absolute;
   right: 0.03em;
   bottom: 0.03em;
-  font-size: 1em;
-  line-height: 0.8em;
   text-size-adjust: none;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;

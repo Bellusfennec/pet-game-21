@@ -355,7 +355,7 @@ function getCardFor(name) {
         <div class="card__icon__lg">${suit}</div>
     </div>
     </div>`
-    classAdd(`card-${q}`, 'open', duration = 500)
+    classAdd(`card-${q}`, 'open', 500)
 }
 
 function getCardNew(name, deck) {
