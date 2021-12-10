@@ -15,6 +15,11 @@
   background: #b20202;
   z-index: 10;
 }
+@media only screen and (max-device-width: 480px) {
+  html {
+    -webkit-text-size-adjust: none;
+  }
+}
 * {
   margin: 0;
   padding: 0;
