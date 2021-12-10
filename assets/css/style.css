@@ -363,16 +363,17 @@ button {
   height: 4em;
   float: left;
   perspective: 800px;
+  line-height: 0.8;
 }
 .card__rank {
   font-weight: bold;
   font-size: 1.5rem;
-  line-height: 80%;
+  line-height: 0.8;
   border: 1px solid #ccc;
 }
 .card__suits {
   font-size: 0.9rem;
-  line-height: 90%;
+  line-height: 0.8;
   border: 1px solid #ccc;
 }
 .card__icon__lg {
@@ -381,7 +382,7 @@ button {
   bottom: 0em;
   border: 1px solid #ccc;
   font-size: 2.3rem;
-  line-height: 80%;
+  line-height: 0.8;
   text-size-adjust: none;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
