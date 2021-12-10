@@ -206,7 +206,7 @@ function getDeck() {
     const deck = []
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
     // const suits = ["clubs", "diamonds", "hearts", "spades"]
-    const suits = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
+    const suits = ["&clubs;&#xFE0E;", "&diams;&#xFE0E;", "&hearts;&#xFE0E;", "&spades;&#xFE0E;"]
     var types = new Array("&clubs;", "&diams;", "&hearts;", "&spades;");
 
     suits.forEach(function(suit) {
