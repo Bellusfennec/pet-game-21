@@ -349,8 +349,8 @@ function getCardFor(name) {
     <div class="card card-${q}">
     <div class="card__front"></div>
     <div class="card__back">
-        <span class="card__rank">${rank}</span>
-        <span class="card__suits">${suit}</span>
+        <div class="card__rank">${rank}</div>
+        <div class="card__suits">${suit}</div>
         <div class="card__icon__lg">${suit}</div>
     </div>
     </div>`
