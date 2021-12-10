@@ -89,6 +89,11 @@ button {
   background: #0c4f9c;
   box-shadow: inset #2670de 0 -1px 1px, inset 0 1px 1px #98b9ff, #3c75aa 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
 }
+.bild {
+  position: absolute;
+  color: #ccc;
+  font-size: 0.6rem;
+}
 /* --- WRAPS --- */
 #game {
   width: 100%;
