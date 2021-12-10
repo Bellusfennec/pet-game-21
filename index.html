@@ -15,45 +15,35 @@
 <div id="game">
 
     <div id="board">
-        <div class="dealer">
-            <div class="dealer-cards"></div>
-            <div class="sum hide"></div>
+        <div class="board__dealer">
+            <div class="board__cards"></div>
+            <div class="board__sum hide"></div>
         </div>
-        <div class="message-container"><span class="message"></span></div>
-        <div class="player">
-            <div class="player-cards"></div>
-            <div class="sum hide"></div>
+        <div class="board__message">
+            <span class="board__message__text"></span>
+        </div>
+        <div class="board__player">
+            <div class="board__cards"></div>
+            <div class="board__sum hide"></div>
         </div>
     </div>
-
-    <div id="profile">
-        <div class="rate"></div>
-        <div class="avatar"><img src="assets/images/avatarka.jpg" alt=""></div>
-        <div class="balance"></div>
-        <div class="name">Вы</div>
+    
+    <div id="profile" class="profile">
+        <div class="profile__rate"></div>
+        <div class="profile__avatar"><img src="assets/images/avatarka.jpg" alt=""></div>
+        <div class="profile__balance">
+            <div class="profile__currency">&#8381;</div>
+            <div class="profile__balance__number"></div>
+        </div>
+        <div class="profile__name">Вы</div>
     </div>
 
-<!--    <button id="result" class="icon-bubble2"></button>-->
-    <button id="stop-btn" class="button__mod button__red">Стоп</button>
-    <button id="add-btn" class="button__mod button__green">Взять карту</button>
-    <button id="select-credit-btn" class="button__mod button__red">Взять в долг</button>
+    <button id="stop-btn" class="button__mod button__red hide">Стоп</button>
+    <button id="add-btn" class="button__mod button__green hide">Взять карту</button>
+    <button id="select-credit-btn" class="button__mod button__red hide">Взять в долг</button>
     <button id="select-rate-btn" class="button__mod button__blue">Выбрать ставку</button>
 
-
-    <div id="result-modal" class="modal hide">
-        <div class="modal__header">
-            <span class="title">Результаты</span>
-<!--            <span class="close">&times;</span>-->
-        </div>
-        <div class="modal__body">
-            Побед: <span class="win"></span><br>
-            Поражений: <span class="defeat"></span><br>
-            Ничья: <span class="draw"></span><br>
-        </div>
-        <div class="modal__footer"></div>
-    </div>
-
-    <div id="rate-modal" class="modal">
+    <div id="modal-rate" class="modal hide">
         <div class="modal-header">Выберите ставку</div>
         <div id="rate-list" class="modal__body">
             <button class="rate-btn" data-rate="5">5</button>
@@ -64,6 +54,7 @@
     </div>
 
 </div>
+
 <script src="assets/app.js"></script>
 </body>
 </html>
