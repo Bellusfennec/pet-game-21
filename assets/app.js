@@ -5,7 +5,7 @@ const rateInfo = document.querySelector('.profile__rate')
 const balanceNumber = document.querySelector('.profile__balance__number')
 
 const cards = document.querySelectorAll('.board__cards')
-const message = document.querySelector('.board__message__text')
+const boardMessage = document.querySelector('.board__message')
 const sum = document.querySelectorAll('.board__sum')
 
 const addBtn = document.querySelector('#add-btn')
@@ -23,6 +23,7 @@ let account = []
 const player = {
     name: 'Вы',
     card: [],
+    sumCard: 0,
     balance: 100,
     credit: 0,
     draw: 0,
@@ -41,7 +42,7 @@ if (localStorage.getItem('playerScore')) {
 const dealer = {
     name: 'Дилер',
     card: [],
-    stop: false,
+    sumCard: 0,
     balance: 100,
 }
 
@@ -60,7 +61,7 @@ const dealerMakeMove = () => {
         if (getSum(dealer.card) < getSum(player.card) && getSum(dealer.card) < 21 && getSum(player.card) < 21 || dealer.card.length <= 0 && newGame) {
             getCardFor(dealer)
         } 
-    }, getRandomNumber(1000, 2000))
+    }, 2000) // getRandomNumber(1500, 2000))
 }
 
 let getCheckGame = () => {
@@ -91,7 +92,12 @@ document.querySelector('#rate-list').addEventListener('click', event => {
             //  getBalance(player.balance)
              modalRate.classList.add('hide')
              getGameNew()
-             getAnimationMessage('Началась новая игра.')
+
+            classAdd('board__message', 'animation__opacity')
+            textAdd('board__message', 'Началась новая игра')
+            classRemove('board__message', 'animation__opacity', 5000)
+
+            //  getAnimationMessage('Началась новая игра.')
 
              modalRateInfo.innerHTML = ``
              newGame = true
@@ -130,20 +136,43 @@ function getBalanceNew(balance, balanceNew) {
     step = b > ms ? step = 1 + Math.pwc((String(b).length - 2), 3) : step
     let t = Math.round(ms / (b / step))
     let interval = setInterval(() => {
-    if (balanceNew == balance) {
-        balanceNumber.classList.remove('bold', 'red', 'green')
-        clearInterval(interval)
-    } else if (balanceNew < balance) {
-        balanceNumber.classList.add('bold', 'green')
-        step = balance - step <= balanceNew ? 1 : step
-        balanceNew += step
-    } else if (balanceNew > balance) {
-        balanceNumber.classList.add('bold', 'red')
-        step = balance + step >= balanceNew ? 1 : step
-        balanceNew -= step
-    }
-    balanceNumber.innerHTML = `${balanceNew}`
-  }, t)
+        if (balanceNew == balance) {
+            balanceNumber.classList.remove('bold', 'red', 'green')
+            clearInterval(interval)
+        } else if (balanceNew < balance) {
+            balanceNumber.classList.add('bold', 'green')
+            step = balance - step <= balanceNew ? 1 : step
+            balanceNew += step
+        } else if (balanceNew > balance) {
+            balanceNumber.classList.add('bold', 'red')
+            step = balance + step >= balanceNew ? 1 : step
+            balanceNew -= step
+        }
+        balanceNumber.innerHTML = `${balanceNew}`
+    }, t)
+}
+
+function numberIncrease(element, balanceNew) {
+    let balance
+    balance = balance === 0 ? element.textContent : 0
+    console.log('balance ' + balance);
+    console.log('balanceNew ' + balanceNew);
+    let ms = 2000
+    let step = 1
+    let t = Math.round(ms / (balance / step))
+    let interval = setInterval(() => {
+        console.log('0');
+        if (balanceNew === balance) {
+            console.log('2');
+            clearInterval(interval)
+        } else if (balanceNew < balance) {
+            balanceNew += step
+            console.log('3');
+        } else {
+            clearInterval(interval)
+        }
+        element.innerHTML = `${balanceNew}`
+    }, t)
 }
 
 function getGameNew() {
@@ -175,8 +204,10 @@ function getRandomNumber(min, max) {
 
 function getDeck() {
     const deck = []
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-    const suits = ["clubs", "diamonds", "hearts", "spades"]
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    // const suits = ["clubs", "diamonds", "hearts", "spades"]
+    const suits = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
+    var types = new Array("&clubs;", "&diams;", "&hearts;", "&spades;");
 
     suits.forEach(function(suit) {
         values.forEach(function (value) {
@@ -202,13 +233,13 @@ function getSum(hand) {
     for (let i=0; i<hand.length; i++) {
         let card = hand[i]
         card = card.split('_of_')[0]
-        if (card.split('_of_')[0] !== 'Ace') {
-            if (card === 'Jack' || card === 'Queen' || card === 'King') {
+        if (card.split('_of_')[0] !== 'A') {
+            if (card === 'J' || card === 'Q' || card === 'K') {
                 sum = sum + 10
             } else {
                 sum = sum + parseInt(card)
             }
-        } else if (card.split('_of_')[0] === 'Ace') {
+        } else if (card.split('_of_')[0] === 'A') {
             if (sum > 10) {
                 sum = sum + 1
             } else {
@@ -222,37 +253,44 @@ function getSum(hand) {
 function getCheck() {
     let balance
     if (getSum(dealer.card) === getSum(player.card) && playerStop === 1 || getSum(player.card) === 21 && getSum(dealer.card) === 21){
-        getAnimationMessage('Ничья.')
-        getStyle()
-    } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && playerStop === 1 || getSum(dealer.card) > 21){
-        getAnimationMessage('Вы выиграли!')
-        balance = player.balance + rate
+        classAdd('board__message', 'animation__opacity')
+        textAdd('board__message', 'Ничья.')
+        classRemove('board__message', 'animation__opacity', 5000)
 
+        getStyle()
+    } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && playerStop === 1 || getSum(dealer.card) > 21){ 
+        classAdd('board__message', 'animation__opacity')
+        textAdd('board__message', 'Вы выиграли!')
+        classRemove('board__message', 'animation__opacity', 5000)
         elementAdd(rateInfo, 'profile__rate__text')
         classAdd('profile__rate__text', 'green')
         textAdd('profile__rate__text', `+${rate}`)
         elementDelete('profile__rate__text', 2400)
         elementDelete('chip', 100)
 
+        balance = player.balance + rate
         getBalanceNew(balance, player.balance)
         player.balance += rate
         getStyle()
     } else if (getSum(dealer.card) > getSum(player.card) && getSum(dealer.card) <= 21 && playerStop === 1 || getSum(player.card) > 21 || getSum(dealer.card) === 21) {
-        getAnimationMessage('Вы проиграли.')
-        balance = player.balance - rate
-        
+        classAdd('board__message', 'animation__opacity')
+        textAdd('board__message', 'Вы проиграли.')
+        classRemove('board__message', 'animation__opacity', 5000)
         elementAdd(rateInfo, 'profile__rate__text')
         classAdd('profile__rate__text', 'red')
         textAdd('profile__rate__text', `-${rate}`)
         elementDelete('profile__rate__text', 2400)
         elementDelete('chip', 100)
 
+        balance = player.balance - rate
         getBalanceNew(balance, player.balance)
         player.balance -= rate
         getStyle()
     } else if (getSum(player.card) === 21 && getSum(dealer.card) !== 21) {
-        getAnimationMessage('Black Jack!')
-        balance = player.balance + rate
+        classAdd('board__message', 'animation__opacity')
+        textAdd('board__message', 'Black Jack!')
+        classRemove('board__message', 'animation__opacity', 5000)
+        
         
         elementAdd(rateInfo, 'profile__rate__text')
         classAdd('profile__rate__text', 'green')
@@ -260,6 +298,7 @@ function getCheck() {
         elementDelete('profile__rate__text', 2400)
         elementDelete('chip', 100)
 
+        balance = player.balance + rate
         getBalanceNew(balance, player.balance)
         player.balance += rate
         getStyle()
@@ -286,20 +325,36 @@ function getCheck() {
 }
 
 function getCardFor(name) {
-    const sum = document.querySelectorAll('.board__sum')
+    let sum = document.querySelectorAll('.board__sum')
     let rank, suit
     getCardNew(name.card, deck)
     rank = name.card[name.card.length - 1].split('_of_')[0]
     suit = name.card[name.card.length - 1].split('_of_')[1]
     if (name.name === 'Дилер') {
         n = 0
+        // numberIncrease(sum[n], getSum(dealer.card))
+        // console.log('1 ' + sum[n].textContent);
         sum[n].innerHTML = `${getSum(dealer.card)}`
+        // console.log('2 ' + sum[n].textContent);
     }  else if (name.name === 'Вы') {
         n = 1
+        // numberIncrease(sum[n], getSum(player.card))
         sum[n].innerHTML = `${getSum(player.card)}`
     }
     sum[n].classList.remove('hide')
-    cards[n].innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
+    // cards[n].innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
+    const card = document.querySelectorAll('.card')
+    let q = card.length
+    cards[n].innerHTML += `
+    <div class="card card-${q}">
+    <div class="card__front"></div>
+    <div class="card__back">
+        <span class="card__rank">${rank}</span>
+        <span class="card__suits">${suit}</span>
+        <div class="card__icon__lg">${suit}</div>
+    </div>
+    </div>`
+    classAdd(`card-${q}`, 'open', duration = 500)
 }
 
 function getCardNew(name, deck) {
@@ -359,17 +414,28 @@ function elementAdd(element, className) {
     e.classList.add(`${className}`)
     element.append(e)
 }
-function elementDelete(className, duration) {
+function elementDelete(className, duration = 0) {
     let e = document.querySelector(`.${className}`)
     setTimeout(() => {
         e.remove()
     }, duration)
 }
-function classAdd(className, classAdd) {
+function classAdd(className, classAdd, duration = 0) {
     let e = document.querySelector(`.${className}`)
-    e.classList.add(`${classAdd}`)
+    setTimeout(() => {
+        e.classList.add(`${classAdd}`)
+    }, duration)
+}
+function classRemove(className, classRemove, duration = 0) {
+    let e = document.querySelector(`.${className}`)
+    setTimeout(() => {
+        e.classList.remove(`${classRemove}`)
+    }, duration)
 }
 function textAdd(className, text) {
     let e = document.querySelector(`.${className}`)
     e.innerText = `${text}`
 }
+
+// classRemove(className, classRemove, duration = 0)
+// elementDelete('board__message', 5000)
