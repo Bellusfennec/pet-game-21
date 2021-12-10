@@ -104,20 +104,14 @@ button {
   box-sizing: border-box;
 }
 /* --- CARDS --- */
-.dealer,
-.player {
+.board__dealer,
+.board__player {
   position: relative;
   display: flex;
   justify-content: center;
-}
-.dealer {
   margin-bottom: 1rem;
 }
-.player {
-  margin-bottom: 1rem;
-}
-.dealer-cards,
-.player-cards {
+.board__cards {
   display: flex;
   margin-left: 2.5rem;
   order: 1;
@@ -129,7 +123,7 @@ button {
 .card + .card {
   margin-left: -2rem;
 }
-.sum {
+.board__sum {
   align-self: start;
   order: 2;
   position: relative;
@@ -144,7 +138,7 @@ button {
   padding: 0.1rem 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.17) 0 0 1rem 0 inset;
 }
-#board .message-container {
+.board__message {
   display: inline-block;
   overflow: hidden;
   margin-bottom: 1rem;
@@ -154,7 +148,7 @@ button {
 .animation {
   animation: width 5s ease-in-out;
 }
-#board .message {
+.board__message__text {
   overflow: hidden;
   white-space: nowrap;
   color: #eaeaea;
@@ -177,12 +171,13 @@ button {
   }
 }
 /* --- PROFILE --- */
-#profile {
+.profile {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.rate {
+.profile__rate {
+  position: relative;
   margin-bottom: 0.7rem;
   border: #3c5737 0.1rem solid;
   border-radius: 50%;
@@ -192,16 +187,26 @@ button {
   justify-content: center;
   align-items: end;
 }
+.profile__rate__text {
+  position: absolute;
+  font-weight: bolder;
+  color: #00b400;
+  text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
+  animation: upText 2.5s ease-in-out;
+  z-index: 2;
+}
 .chip {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   border: #ffd600 0.1rem dashed;
-  font-size: 0.7em;
-  width: 1.5rem;
-  height: 1.5rem;
+  font-size: 0.5em;
+  width: 1.4rem;
+  height: 1.4rem;
   color: white;
+  z-index: 1;
 }
 .chip-red {
   background: #b40000;
@@ -212,7 +217,7 @@ button {
 .chip-black {
   background: #000000;
 }
-.avatar {
+.profile__avatar {
   box-sizing: content-box;
   border: #888888 0.05rem solid;
   width: 4rem;
@@ -221,7 +226,7 @@ button {
   position: relative;
   margin-bottom: 0.1rem;
 }
-.avatar img {
+.profile__avatar img {
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -230,26 +235,29 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.balance {
+.profile__balance {
   background: #1a1a1a;
   box-shadow: rgba(255, 255, 255, 0.2) 0 2px 4px 0 inset;
   width: 6rem;
   color: white;
-  font-size: 0.8rem;
-  padding: 0.3rem 0.3rem 0.3rem 1.6rem;
+  font-size: 1rem;
+  padding: 0.2rem 0.2rem 0.2rem 1.6rem;
   border-radius: 1rem;
   position: relative;
 }
-.currency {
+.profile__currency {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   border: #ffd600 0.1rem dashed;
   top: 0.2rem;
   left: 0.2rem;
   border-radius: 50%;
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
-.name {
+.profile__name {
   color: white;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
@@ -262,6 +270,15 @@ button {
 .hide {
   display: none;
   transition: all 1s;
+}
+.bold {
+  font-weight: bolder;
+}
+.red {
+  color: #d60101;
+}
+.green {
+  color: #00b400;
 }
 .modal {
   position: absolute;
@@ -323,4 +340,16 @@ button {
 }
 #rate-list button:nth-child(3) {
   background: radial-gradient(#363636 20%, #000000);
+}
+@keyframes upText {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
 }
