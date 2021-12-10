@@ -371,14 +371,14 @@ button {
 }
 .card__suits {
   font-size: 0.9rem;
-  line-height: 0.8em;
+  line-height: 0.9em;
 }
 .card__icon__lg {
   position: absolute;
   right: 0em;
   bottom: 0em;
   font-size: 2.5rem;
-  line-height: 0.8em;
+  line-height: 0.9em;
   text-size-adjust: none;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
