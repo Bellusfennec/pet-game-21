@@ -363,10 +363,10 @@ function suitColor(suit) {
     if (suit.indexOf('diams') !== -1 || suit.indexOf('hearts') !== -1) {
         console.log('red');
         console.log(suit);
-        return `<span class="red">${suit}</span>`
+        return `<div class="red">${suit}</div>`
     } else {
         console.log('b');
-        return `<span class="">${suit}</span>`
+        return `<div class="">${suit}</div>`
     }
 }
 
