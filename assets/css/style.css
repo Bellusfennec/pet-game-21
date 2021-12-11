@@ -20,7 +20,9 @@
     -webkit-text-size-adjust: none;
   }
 }
-* {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -47,13 +49,33 @@ body {
     font-size: 20px;
   }
 }
+form {
+  width: 13rem;
+}
+input,
 button {
-  background: white;
-  cursor: pointer;
-  color: black;
-  font-size: 1em;
+  outline: none;
   font-family: inherit;
+  font-size: inherit;
+  border-radius: 1.5em;
   padding: 0.5em 1em;
+  margin: 0.5em 0;
+  background: white;
+  color: black;
+}
+input[type='text']:last-child {
+  margin: 0;
+}
+input {
+  width: 100%;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border: none;
+}
+input[type='submit'],
+button {
+  cursor: pointer;
+}
+button {
   margin: 0 0 0.5em 0.5em;
   white-space: nowrap;
   border: none;
@@ -66,7 +88,6 @@ button {
 .button__mod {
   font-weight: 700;
   text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
-  border-radius: 1.5em;
   border: #d4d000 3px solid;
 }
 .button__mod:hover {
@@ -139,6 +160,7 @@ button {
   font-size: 0.75rem;
   border-radius: 1rem;
   padding: 0.1rem 0.5rem;
+  height: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.17) 0 0 1rem 0 inset;
 }
 .board__message {
@@ -206,7 +228,7 @@ button {
   width: 1.4rem;
   height: 1.4rem;
   color: white;
-  z-index: 1;
+  user-select: none;
 }
 .chip-red {
   background: #b40000;
@@ -244,6 +266,7 @@ button {
   padding: 0.2rem 0.2rem 0.2rem 1.6rem;
   border-radius: 1rem;
   position: relative;
+  user-select: none;
 }
 .profile__currency {
   display: flex;
@@ -256,11 +279,13 @@ button {
   border-radius: 50%;
   width: 1.4rem;
   height: 1.4rem;
+  user-select: none;
 }
 .profile__name {
   color: white;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
+  user-select: none;
 }
 /* --- RESULT --- */
 #result {
@@ -308,7 +333,8 @@ button {
   padding: 0;
   line-height: 2rem;
 }
-#modal-rate .modal__header {
+#modal-rate .modal__header,
+#modal-name .modal__header {
   text-align: center;
   justify-content: center;
 }
