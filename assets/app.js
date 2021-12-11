@@ -206,8 +206,8 @@ function getDeck() {
     const deck = []
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
     // const suits = ["clubs", "diamonds", "hearts", "spades"]
-    // const suits = ["&clubs;&#xFE0E;", "&diams;&#xFE0E;", "&hearts;&#xFE0E;", "&spades;&#xFE0E;"]
-    const suits = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
+    const suits = ["&clubs;&#xFE0E;", "&diams;&#xFE0E;", "&hearts;&#xFE0E;", "&spades;&#xFE0E;"]
+    // const suits = ["&clubs;", "&diams;", "&hearts;", "&spades;"]
     // const suits = ["&#xe918;", "&#xe919;", "&#xe9da;", "&#xe917;"]
     var types = new Array("&clubs;", "&diams;", "&hearts;", "&spades;");
 
@@ -352,11 +352,22 @@ function getCardFor(name) {
     <div class="card__front"></div>
     <div class="card__back">
         <div class="card__rank">${rank}</div>
-        <div class="card__suits">${suit}</div>
-        <div class="card__icon__lg">${suit}</div>
+        <div class="card__suits">${suitColor(suit)}</div>
+        <div class="card__icon__lg">${suitColor(suit)}</div>
     </div>
     </div>`
     classAdd(`card-${q}`, 'open', 500)
+}
+
+function suitColor(suit) {
+    if (suit.indexOf('diams') !== -1 || suit.indexOf('hearts') !== -1) {
+        console.log('red');
+        console.log(suit);
+        return `<span class="red">${suit}</span>`
+    } else {
+        console.log('b');
+        return `<span class="">${suit}</span>`
+    }
 }
 
 function getCardNew(name, deck) {
