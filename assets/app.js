@@ -135,12 +135,13 @@ function getBalanceNew(balance, balanceNew) {
             step = balance + step >= balanceNew ? 1 : step
             balanceNew -= step
         }
-        balanceNumber.innerHTML = `${balanceNew}`
+        balanceNumber.textContent = `${balanceNew}`
     }, t)
 }
 
 function numberIncrease(element, to) {
     let from = !element.textContent ? 0 : Number(element.textContent)
+    element.textContent = `${from}`
     let b = Math.abs(from - to)
     let ms = 750
     let step = 1
@@ -151,7 +152,7 @@ function numberIncrease(element, to) {
         } else {
             clearInterval(interval)
         }
-        element.innerHTML = `${from}`
+        element.textContent = `${from}`
     }, t)
 }
 
