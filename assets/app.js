@@ -284,14 +284,12 @@ function getCheck() {
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Black Jack!')
         classRemove('.board__message', '.animation__opacity', 5000)
-        
-        
         elementAdd('.profile__rate', ['.profile__rate__text'])
         classAdd('.profile__rate__text', '.green')
         textAdd('.profile__rate__text', `+${player.rate}`)
         elementDelete('.profile__rate__text', 2400)
         elementDelete('.chip', 100)
-
+        
         balance = player.balance + player.rate
         getBalanceNew(balance, player.balance)
         player.balance += player.rate
@@ -328,17 +326,17 @@ function getCardFor(name) {
     if (name.name === 'Дилер') {
         n = 0
 
-        numberIncrease(sum[n], getSum(dealer.card))
+        // numberIncrease(sum[n], getSum(dealer.card))
         // textAdd(className,`${getSum(dealer.card)}`)
 
-        // sum[n].innerHTML = `${getSum(dealer.card)}`
+        sum[n].innerHTML = `${getSum(dealer.card)}`
     }  else if (name.name === account[0]) {
         n = 1
 
-        numberIncrease(sum[n], getSum(player.card))
+        // numberIncrease(sum[n], getSum(player.card))
         // textAdd(className, text)
 
-        // sum[n].innerHTML = `${getSum(player.card)}`
+        sum[n].innerHTML = `${getSum(player.card)}`
     }
     sum[n].classList.remove('hide')
     // cards[n].innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
