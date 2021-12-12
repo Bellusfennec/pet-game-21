@@ -1,0 +1,15 @@
+{
+  "name": "zerda-game",
+  "version": "1.0.0",
+  "description": "mini project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "learn"
+  ],
+  "author": "Niyaz Zaytsev <bellusfennec@gmail.com>",
+  "license": "ISC"
+}

@@ -314,7 +314,7 @@ body {
     left: 0;
     border-radius: .5rem;
     border:1px solid #ccc;
-    transition: 1s;
+    transition: 2s;
     backface-visibility: hidden;
 }
 .card__front {
@@ -328,15 +328,15 @@ body {
   background: #fff;
   color:#444;
   padding: .1em;
-  opacity: 0;
+  // opacity: 0;
   z-index: 1;
   transform: rotateY(180deg);
 }
 .open .card__front {
-  opacity: 0;
+  // opacity: 0;
   transform: rotateY(-180deg);
 }
 .open .card__back {
-  opacity: 1;
+  // opacity: 1;
   transform: rotateY(0deg);
 }
