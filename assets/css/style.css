@@ -449,12 +449,15 @@ input:focus:-ms-input-placeholder {
   background: #fff;
   color: #444;
   padding: 0.1em;
+  opacity: 0;
   z-index: 1;
   transform: rotateY(180deg);
 }
 .open .card__front {
+  opacity: 0;
   transform: rotateY(-180deg);
 }
 .open .card__back {
+  opacity: 1;
   transform: rotateY(0deg);
 }
