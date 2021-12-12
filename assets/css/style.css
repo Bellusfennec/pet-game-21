@@ -435,7 +435,7 @@ input:focus:-ms-input-placeholder {
   left: 0;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
-  transition: 0.75s 0.75s;
+  transition: 0.8s 0.6s;
   backface-visibility: hidden;
 }
 .card__front {
