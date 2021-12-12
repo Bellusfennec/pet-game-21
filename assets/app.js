@@ -154,7 +154,7 @@ function numberIncrease(element, to) {
     let from = !element.textContent ? 0 : Number(element.textContent)
     element.textContent = `${from}`
     let b = Math.abs(from - to)
-    let ms = 1500
+    let ms = 900
     let step = 1
     let t = Math.round(ms / (b / step))
     let interval = setInterval(() => {
