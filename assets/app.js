@@ -154,7 +154,7 @@ function numberIncrease(element, to) {
     let from = !element.textContent ? 0 : Number(element.textContent)
     element.textContent = `${from}`
     let b = Math.abs(from - to)
-    let ms = 900
+    let ms = 1100
     let step = 1
     let t = Math.round(ms / (b / step))
     let interval = setInterval(() => {
@@ -257,7 +257,7 @@ function getCheck() {
         textAdd('.board__message', 'Вы выиграли!')
         classRemove('.board__message', '.animation__opacity', 5000)
         elementAdd('.profile__rate', ['.profile__rate__text'])
-        classAdd('.profile__rate__text', 'green')
+        classAdd('.profile__rate__text', '.green')
         textAdd('.profile__rate__text', `+${player.rate}`)
         elementDelete('.profile__rate__text', 2400)
         elementDelete('.chip', 100)
@@ -271,7 +271,7 @@ function getCheck() {
         textAdd('.board__message', 'Вы проиграли.')
         classRemove('.board__message', '.animation__opacity', 5000)
         elementAdd('.profile__rate', ['.profile__rate__text'])
-        classAdd('.profile__rate__text', 'red')
+        classAdd('.profile__rate__text', '.red')
         textAdd('.profile__rate__text', `-${player.rate}`)
         elementDelete('.profile__rate__text', 2400)
         elementDelete('.chip', 100)
@@ -299,7 +299,9 @@ function getCheck() {
     }
     function getStyle() {
         if (player.balance <= 0) {
-            message.innerHTML = `Вы банкрот.`
+            classAdd('.board__message', '.animation__opacity')
+            textAdd('.board__message', 'Вы банкрот.')
+            classRemove('.board__message', '.animation__opacity', 5000)
             selectCreditBtn.classList.remove('hide')
             addBtn.classList.add('hide')
             stopBtn.classList.add('hide')
@@ -351,7 +353,7 @@ function getCardFor(name) {
         <div class="card__icon__lg">${suitColor(suit)}</div>
     </div>
     </div>`
-    classAdd(`.card-${q}`, '.open', 500)
+    classAdd(`.card-${q}`, '.open', 100)
 }
 function suitColor(suit) {
     if (suit.indexOf('diams') !== -1 || suit.indexOf('hearts') !== -1) {
@@ -447,12 +449,14 @@ function elementClassRemove(element, classRemove, duration = 0) {
         element.classList.remove(`${classRemove}`)
     }, duration)
 }
+
 function classRemove(className, classRemove, duration = 0) {
     let e = document.querySelector(`${className}`)
     setTimeout(() => {
-        e.classList.remove(`${classRemove}`)
+        e.classList.remove(`${classRemove.substring(1, classRemove.length)}`)
     }, duration)
 }
+
 function textAdd(className, text) {
     let e = document.querySelector(`${className}`)
     e.innerText = `${text}`
