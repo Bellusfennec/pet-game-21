@@ -35,10 +35,24 @@ const player = {
         return this.win++
     }
 }
-if (localStorage.getItem('playerScore')) {
-    account = JSON.parse(localStorage.getItem('playerScore'))
+if (localStorage.getItem('account-game21')) {
+    account = JSON.parse(localStorage.getItem('account-game21'))
+    player.name = account[0]
     player.balance = account[1]
+    textAdd('.profile__name', account[0])
+    textAdd('.profile__balance__number', account[1])
+} else {
+    elementClassRemove('#modal-name', 'hide', 1000)
+    document.forms["name"].addEventListener('submit', event => {
+        player.name = document.forms["name"].elements["nickname"].value
+        account[0] = player.name
+        account[1] = player.balance
+        localStorage.setItem('account-game21', JSON.stringify(account))
+    })
+    textAdd('.profile__name', player.name)
+    textAdd('.profile__balance__number', player.balance)
 }
+
 const dealer = {
     name: 'Дилер',
     card: [],
@@ -46,7 +60,7 @@ const dealer = {
     balance: 100,
 }
 
-getBalance(player.balance, player.balance)
+// getBalance(player.balance, player.balance)
 
 const dealerMakeMove = () => {
     dealerMove = setInterval(() => {
@@ -66,13 +80,12 @@ const getCheckGame = () => {
     }, 100)
 }
 
-
 document.querySelector('#rate-list').addEventListener('click', event => {
      if (event.target.classList.contains('rate-btn')) {
         player.rate = parseInt(event.target.getAttribute('data-rate'))
 
          if (player.balance < player.rate) {
-             modalRateInfo.innerHTML = `Недостаточно средств.`
+             console.log('Недостаточно средств.');
          } else {
              if (player.rate === 5) {
                  rateInfo.innerHTML = `<div class="chip chip-red">${player.rate}</div>`
@@ -88,13 +101,11 @@ document.querySelector('#rate-list').addEventListener('click', event => {
              textAdd('.board__message', 'Началась новая игра')
              classRemove('.board__message', '.animation__opacity', 5000)
 
-             modalRateInfo.innerHTML = ``
              newGame = true
              deck = getShuffle(getDeck())
              dealerMakeMove()
              getCheckGame()
          }
-         modalRate.append(modalRateInfo)
      }
 })
 
@@ -143,7 +154,7 @@ function numberIncrease(element, to) {
     let from = !element.textContent ? 0 : Number(element.textContent)
     element.textContent = `${from}`
     let b = Math.abs(from - to)
-    let ms = 750
+    let ms = 1500
     let step = 1
     let t = Math.round(ms / (b / step))
     let interval = setInterval(() => {
@@ -303,7 +314,7 @@ function getCheck() {
         }
     }
     account = [player.name, player.balance]
-    localStorage.setItem('playerScore', JSON.stringify(account))
+    localStorage.setItem('account-game21', JSON.stringify(account))
 }
 
 function getCardFor(name) {
@@ -316,12 +327,14 @@ function getCardFor(name) {
         n = 0
 
         numberIncrease(sum[n], getSum(dealer.card))
+        // textAdd(className,`${getSum(dealer.card)}`)
 
         // sum[n].innerHTML = `${getSum(dealer.card)}`
-    }  else if (name.name === 'Вы') {
+    }  else if (name.name === account[0]) {
         n = 1
 
         numberIncrease(sum[n], getSum(player.card))
+        // textAdd(className, text)
 
         // sum[n].innerHTML = `${getSum(player.card)}`
     }
@@ -338,7 +351,7 @@ function getCardFor(name) {
         <div class="card__icon__lg">${suitColor(suit)}</div>
     </div>
     </div>`
-    classAdd(`.card-${q}`, 'open', 500)
+    classAdd(`.card-${q}`, '.open', 500)
 }
 function suitColor(suit) {
     if (suit.indexOf('diams') !== -1 || suit.indexOf('hearts') !== -1) {
@@ -420,8 +433,18 @@ function elementDelete(className, duration = 0) {
 }
 function classAdd(className, classAdd, duration = 0) {
     let e = document.querySelector(`${className}`)
+    // console.log(classAdd.substring(1, classAdd.length));
     setTimeout(() => {
-        e.classList.add(`${classAdd}`)
+        // console.log(classAdd.substring(1, className[i].length));
+        e.classList.add(`${classAdd.substring(1, classAdd.length)}`)
+    }, duration)
+}
+function elementClassRemove(element, classRemove, duration = 0) {
+    if (element.charAt(0) === '.' || element.charAt(0) === '#') {
+        element = document.querySelector(`${element}`)
+    }
+    setTimeout(() => {
+        element.classList.remove(`${classRemove}`)
     }, duration)
 }
 function classRemove(className, classRemove, duration = 0) {
@@ -455,4 +478,3 @@ function setChildNodesText(element, className, text) {
 // elementAdd('#modal-name', ['.modal__header'])
 // elementAdd('#modal-name', ['.modal__body'])
 // setChildNodesText('#modal-name', 'modal__header', 'Ваше Имя:')
-

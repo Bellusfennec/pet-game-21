@@ -22,13 +22,27 @@ input {
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
     border: none;
 }
+input[type='text'] {
+  border: 1px solid rgba(0,0,0,.05);
+}
 input[type='submit'], button {
     cursor: pointer;
 }
-// input:hover,
-// input:focus {
-//   }
-
+input[type='text']:hover,
+input[type='text']:focus {
+  border: 1px solid rgba(0,0,0,2);
+}
+.form__nick {
+  text-align: center;
+}
+input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+input::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+input:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+input:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+input:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
 button {
     margin: 0 0 0.5em 0.5em;
     white-space: nowrap;
