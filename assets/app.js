@@ -1,7 +1,5 @@
-const game = document.querySelector('#game')
-
+// const game = document.querySelector('#game')
 const modalRate = document.querySelector('#modal-rate')
-const modalRateInfo = document.querySelector('.not-founds')
 
 const rateInfo = document.querySelector('.profile__rate')
 const balanceNumber = document.querySelector('.profile__balance__number')
@@ -59,8 +57,6 @@ const dealer = {
     sumCard: 0,
     balance: 100,
 }
-
-// getBalance(player.balance, player.balance)
 
 const dealerMakeMove = () => {
     dealerMove = setInterval(() => {
@@ -123,9 +119,6 @@ selectRateBtn.addEventListener('click', () => {
     modalRate.classList.remove('hide')
     selectRateBtn.classList.add('hide')
 })
-function getBalance(balance) {
-    balanceNumber.innerHTML = `${balance}`
-}
 
 function getBalanceNew(balance, balanceNew) {
     let ms = 2000
@@ -326,17 +319,17 @@ function getCardFor(name) {
     if (name.name === 'Дилер') {
         n = 0
 
-        // numberIncrease(sum[n], getSum(dealer.card))
+        numberIncrease(sum[n], getSum(dealer.card))
         // textAdd(className,`${getSum(dealer.card)}`)
 
-        sum[n].innerHTML = `${getSum(dealer.card)}`
+        // sum[n].innerHTML = `${getSum(dealer.card)}`
     }  else if (name.name === account[0]) {
         n = 1
 
-        // numberIncrease(sum[n], getSum(player.card))
+        numberIncrease(sum[n], getSum(player.card))
         // textAdd(className, text)
 
-        sum[n].innerHTML = `${getSum(player.card)}`
+        // sum[n].innerHTML = `${getSum(player.card)}`
     }
     sum[n].classList.remove('hide')
     // cards[n].innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
@@ -433,9 +426,7 @@ function elementDelete(className, duration = 0) {
 }
 function classAdd(className, classAdd, duration = 0) {
     let e = document.querySelector(`${className}`)
-    // console.log(classAdd.substring(1, classAdd.length));
     setTimeout(() => {
-        // console.log(classAdd.substring(1, className[i].length));
         e.classList.add(`${classAdd.substring(1, classAdd.length)}`)
     }, duration)
 }
@@ -480,3 +471,14 @@ function setChildNodesText(element, className, text) {
 // elementAdd('#modal-name', ['.modal__header'])
 // elementAdd('#modal-name', ['.modal__body'])
 // setChildNodesText('#modal-name', 'modal__header', 'Ваше Имя:')
+
+
+function getBalance(a) {
+    return function(b) {
+        return a * b
+    }
+}
+
+const balance = getBalance(100)
+
+console.log(balance(2));
