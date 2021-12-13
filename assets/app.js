@@ -50,10 +50,19 @@ if (localStorage.getItem('account-game21')) {
     textAdd('.profile__name', player.name)
     textAdd('.profile__balance__number', player.balance)
 }
-
+if (player.balance === 0) {
+    classAdd('.board__message', '.animation__opacity')
+    textAdd('.board__message', 'Вам начислено 10 монет! ;)')
+    classRemove('.board__message', '.animation__opacity', 5000)
+    player.balance += 10
+    account[1] = player.balance
+    localStorage.setItem('account-game21', JSON.stringify(account))
+    getBalanceNew(player.balance, 0)
+}
 const dealer = {
     name: 'Дилер',
     card: [],
+    cardStop: false,
     sumCard: 0,
     balance: 100,
 }
@@ -62,13 +71,14 @@ const dealerMakeMove = () => {
     dealerMove = setInterval(() => {
         if (getSum(dealer.card) < getSum(player.card) && getSum(dealer.card) < 21 && getSum(player.card) < 21 || dealer.card.length <= 0 && newGame) {
             getCardFor(dealer)
-        } 
+        } else if (player.cardStop) {
+            dealer.cardStop = true
+        }
     }, 2000)
 }
 
 const getCheckGame = () => {
     checkGame = setInterval(() => {
-        console.log('sdd');
         if (newGame) {
             getCheck()
         } else {
@@ -165,7 +175,8 @@ function getGameNew() {
     dealer.card = []
     player.card = []
     deck = []
-    playerStop = false
+    dealer.cardStop = false
+    player.cardStop = false
     cards[0].innerHTML = `${dealer.card}`
     cards[1].innerHTML = `${player.card}`
     selectRateBtn.classList.add('hide')
@@ -178,8 +189,9 @@ function getGameNew() {
 }
 
 selectCreditBtn.addEventListener('click', () => {
+
     player.balance += 10
-    getBalance(player.balance)
+    getBalanceNew(player.balance, 0)
     getGameNew()
     selectCreditBtn.classList.add('hide')
     modalRate.classList.remove('hide')
@@ -240,14 +252,13 @@ function getSum(hand) {
 
 function getCheck() {
     let balance
-    if (getSum(dealer.card) === getSum(player.card) && player.cardStop || getSum(player.card) === 21 && getSum(dealer.card) === 21){
+    if (getSum(dealer.card) === getSum(player.card) && player.cardStop && dealer.cardStop || getSum(player.card) === 21 && getSum(dealer.card) === 21){
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Ничья.')
         classRemove('.board__message', '.animation__opacity', 5000)
 
         getStyle()
-        player.cardStop = false
-    } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && player.cardStop || getSum(dealer.card) > 21){ 
+    } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && player.cardStop && dealer.cardStop || getSum(dealer.card) > 21){ 
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Вы выиграли!')
         classRemove('.board__message', '.animation__opacity', 5000)
@@ -261,7 +272,7 @@ function getCheck() {
         getBalanceNew(balance, player.balance)
         player.balance += player.rate
         getStyle()
-    } else if (getSum(dealer.card) > getSum(player.card) && getSum(dealer.card) <= 21 && player.cardStop || getSum(player.card) > 21 || getSum(dealer.card) === 21) {
+    } else if (getSum(dealer.card) > getSum(player.card) && getSum(dealer.card) <= 21 && player.cardStop && dealer.cardStop || getSum(player.card) > 21 || getSum(dealer.card) === 21) {
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Вы проиграли.')
         classRemove('.board__message', '.animation__opacity', 5000)
@@ -296,18 +307,13 @@ function getCheck() {
             textAdd('.board__message', 'Вы банкрот.')
             classRemove('.board__message', '.animation__opacity', 5000)
             selectCreditBtn.classList.remove('hide')
-            addBtn.classList.add('hide')
-            stopBtn.classList.add('hide')
-            clearInterval(dealerMove)
-            newGame = false
         } else {
-            addBtn.classList.add('hide')
-            stopBtn.classList.add('hide')
             selectRateBtn.classList.remove('hide')
-            clearInterval(dealerMove)
-            newGame = false
-            
         }
+        addBtn.classList.add('hide')
+        stopBtn.classList.add('hide')
+        clearInterval(dealerMove)
+        newGame = false
     }
     account = [player.name, player.balance]
     localStorage.setItem('account-game21', JSON.stringify(account))
