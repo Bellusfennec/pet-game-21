@@ -68,6 +68,7 @@ const dealerMakeMove = () => {
 
 const getCheckGame = () => {
     checkGame = setInterval(() => {
+        console.log('sdd');
         if (newGame) {
             getCheck()
         } else {
@@ -245,6 +246,7 @@ function getCheck() {
         classRemove('.board__message', '.animation__opacity', 5000)
 
         getStyle()
+        player.cardStop = false
     } else if (getSum(player.card) > getSum(dealer.card) && getSum(player.card) <= 21 && player.cardStop || getSum(dealer.card) > 21){ 
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Вы выиграли!')
@@ -304,6 +306,7 @@ function getCheck() {
             selectRateBtn.classList.remove('hide')
             clearInterval(dealerMove)
             newGame = false
+            
         }
     }
     account = [player.name, player.balance]
@@ -473,12 +476,12 @@ function setChildNodesText(element, className, text) {
 // setChildNodesText('#modal-name', 'modal__header', 'Ваше Имя:')
 
 
-function getBalance(a) {
-    return function(b) {
-        return a * b
-    }
-}
+// function getBalance(a) {
+//     return function(b) {
+//         return a * b
+//     }
+// }
 
-const balance = getBalance(100)
+// const balance = getBalance(100)
 
-console.log(balance(2));
+// console.log(balance(2));
