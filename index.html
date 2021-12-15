@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <title>21</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/style.css?v=139">
+    <link rel="stylesheet" href="assets/css/style.css?v=140">
     <link rel="stylesheet" href="assets/icomoon/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet"> -->
+ <!-- <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> -->
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+    <!-- <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet"> -->
+    <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
 </head>
 <body>
 
 <div id="game">
-    <div class="bild">v.139</div>
+    <div class="bild">v.140</div>
+
+    <nav class="menu">
+    <input type="checkbox" id="menu__active">
+    <label for="menu__active" class="menu__btn">
+        <i class="fas fa-bars"></i>
+    </label>
+        <ul>
+            <li><a href="#"><i class="fas fa-user-circle"></i></a></li>
+            <li><a href="#" class="modal__open" data-modal="statistic"><i class="fas fa-poll"></i></a></li>
+        </ul>
+    </nav>
 
     <div id="board">
         <div class="board__dealer">
@@ -40,36 +57,50 @@
     <button id="stop-btn" class="button__mod button__red hide">Стоп</button>
     <button id="add-btn" class="button__mod button__green hide">Взять карту</button>
     <button id="select-credit-btn" class="button__mod button__red hide">Взять в долг</button>
-    <button id="select-rate-btn" class="button__mod button__blue">Выбрать ставку</button>
+    <button id="select-rate-btn" class="button__mod button__blue modal__open" data-modal="rate">Выбрать ставку</button>
 
-    <div id="modal-rate" class="modal hide">
-        <div class="modal__window">
-            <div class="modal__header  center">Выберите ставку</div>
-            <div id="rate-list" class="modal__body">
-                <button class="rate-btn" data-rate="5">5</button>
-                <button class="rate-btn" data-rate="25">25</button>
-                <button class="rate-btn" data-rate="100">100</button>
-            </div>
-            <div class="modal__footer"><span class="not-founds"></span></div>
+    <div id="modal-rate" class="modal" data-modal="rate">
+        <div class="modal__header center">Выберите ставку</div>
+        <div id="rate-list" class="modal__body">
+            <button class="rate-btn modal__close" data-rate="5">5</button>
+            <button class="rate-btn modal__close" data-rate="25">25</button>
+            <button class="rate-btn modal__close" data-rate="100">100</button>
         </div>
+        <div class="modal__footer"><span class="not-founds"></span></div>
     </div>
 
-    <div id="modal-name" class="modal hide">
-        <div class="modal__window">
-            <div class="modal__header center">Игрок</div>
-            <div class="modal__body">
-                <form id="name" action="">
-                    <input class="form__nick" name="nickname" type="text" placeholder="Имя">
-                    <input class="button__mod button__blue" type="submit" value="Выбрать">
-                </form>
-            </div>
-            <div class="modal__footer"></div>
+    <div id="modal-name" class="modal">
+        <div class="modal__header center">Игрок</div>
+        <div class="modal__body">
+            <form id="name" action="">
+                <input class="form__nick" name="nickname" type="text" placeholder="Имя">
+                <input class="button__mod button__blue modal__close" type="submit" value="Выбрать">
+            </form>
         </div>
+        <div class="modal__footer"></div>
+    </div>
+
+    <div id="modal-statistic" class="modal" data-modal="statistic">
+        <div class="modal__header">
+            <div class="modal__title">Статистика</div>
+            <div class="modal__close"><i class="fas fa-times"></i></div>
+        </div>
+        <div id="statistic-list" class="modal__body">
+            <p>Побед: <span class="statistic__win"></span></p>
+            <p>Поражений: <span class="statistic__lose"></span></p>
+            <p>Ничьи: <span class="statistic__draw"></span></p>
+            <p>Всего игр: <span class="statistic__total"></span></p>
+            <p>Побед: <span class="statistic__win__percent"></span>%</p>
+        </div>
+        <div class="modal__footer"></div>
     </div>
 
 </div>
 
+<div class="overlay modal__overlay"></div>
+
 <img class="hide" src="/assets/images/front-card.png" alt="">
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/409445/animateAnything.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

@@ -1,34 +1,17 @@
 // main: ../style.css
 
-.modal {
-  background: rgba(0,0,0,.5);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-.modal__window {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: .5rem;
-  margin: .5rem;
-  background: white;
-  border-radius: .5rem;
-  box-shadow: #686868 0 0 1rem .3rem;
-  z-index: 10;
-  text-align: left;
-}
-.modal__header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: .5rem;
-}
+// .modal {
+//   background: rgba(0,0,0,.5);
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   top: 0;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
+// }
+
+
 .center {
   text-align: center;
   justify-content: center;
@@ -58,4 +41,59 @@
 }
 #rate-list button:nth-child(3) {
   background: radial-gradient(#363636 20%, #000000);
+}
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+.modal__title {
+  margin-right: 1rem;
+  // border: 1px solid #ccc;
+}
+.modal__close i {
+  // border: 1px solid #ccc;
+}
+.modal__close i {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1rem;
+  padding: .75rem 1rem;
+  cursor: pointer;
+}
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  min-width: 10rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  box-shadow: 0 3px 10px -.5px rgba(0, 0, 0, .2); 
+  text-align: center;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  background: white;
+  transition: 0.3s all;
+  text-align: left;
+}
+.modal.active,
+.overlay.active{
+   opacity: 1;
+   visibility: visible;
+}
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 100;
+  transition: .3s all;
 }
