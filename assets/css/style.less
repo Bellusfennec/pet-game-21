@@ -340,3 +340,95 @@ body {
   opacity: 1;
   transform: rotateY(0deg);
 }
+
+.entry-content {
+  background: #def9e5;
+  background:-webkit-gradient(linear,left top,right top,from(#def9e5),to(#effbce));
+  background:-webkit-linear-gradient(left,#def9e5 0,#effbce 100%);
+  background: -o-linear-gradient(left,#def9e5 0,#effbce 100%);
+  background:linear-gradient(to right,#def9e5 0,#effbce 100%);
+}
+
+
+
+
+
+
+
+///////////////////////////////////////////
+input[type="checkbox"]#menu__active {
+  display: none;
+}
+.menu__btn{
+  position: absolute;
+  z-index: 1;
+  right: .5rem;
+  top: .5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  text-align: center;
+  line-height: 2.5rem;
+  color: rgb(0, 60, 0);
+  border: 1px solid rgb(0, 60, 0);
+  border-radius: 50%;
+  
+  cursor: pointer;
+  // background: #000;
+  // background: linear-gradient(-135deg, #c850c0, #4158d0);
+  // background: linear-gradient(375deg, #1cc7d0, #2ede98);
+  // background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%);
+  
+  transition: all 0.3s ease-in-out;
+}
+#menu__active:checked ~ .menu__btn{
+  color: rgb(0, 60, 0);
+  border-radius: .25rem;
+  background: rgba(255, 255, 255, 0.25);
+}
+#menu__active:checked ~ .menu__btn i:before{
+  content: "\f00d";
+}
+#menu__active:checked ~ ul {
+  border: 1px solid rgb(0, 60, 0);
+  display: inline-block;
+}
+.menu ul {
+  z-index: 1;
+  display: none;
+  // display: inline-block;
+  position: absolute;
+  top: 3.25rem;
+  right: .5rem;
+  list-style: none;
+  border-radius: .25rem;
+  animation: openMenu 1s;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+}
+.menu li {
+  transition: all 0.3s ease;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+.menu li:hover {
+  background: rgba(0, 0, 0, 0.15); 
+}
+.menu li:nth-last-of-type(1) {
+  border-bottom: none;
+}
+.menu a {
+  padding: .5rem .75rem;
+  display: inline-block;
+  text-decoration: none;
+  color: #333b30;
+}
+.menu a:hover {
+  color: #121b0e;
+}
+@keyframes openMenu {
+    0% {
+      top: -10rem;
+    }
+    100% {
+      right: .5rem;
+    }
+  }

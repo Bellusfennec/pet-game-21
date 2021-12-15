@@ -1,4 +1,3 @@
-// const game = document.querySelector('#game')
 const modalRate = document.querySelector('#modal-rate')
 
 const rateInfo = document.querySelector('.profile__rate')
@@ -26,21 +25,36 @@ const player = {
     balance: 100,
     rate: 0,
     credit: 0,
-    draw: 0,
-    win: 0,
-    defeat: 0,
+    statistics: {
+        win: 0,
+        lose: 0,
+        total: 0,
+    },
     winCount: function() {
         return this.win++
     }
+}
+
+const dealer = {
+    name: 'Дилер',
+    card: [],
+    cardStop: false,
+    sumCard: 0,
+    balance: 100,
 }
 if (localStorage.getItem('account-game21')) {
     account = JSON.parse(localStorage.getItem('account-game21'))
     player.name = account[0]
     player.balance = account[1]
+    player.statistics.win = account[2]
+    player.statistics.lose = account[3]
+    player.statistics.total = account[4]
     textAdd('.profile__name', account[0])
     textAdd('.profile__balance__number', account[1])
+    getStatistic()
 } else {
-    elementClassRemove('#modal-name', 'hide', 1000)
+    
+    elementClassAdd('#modal-name', 'active', 1000)
     document.forms["name"].addEventListener('submit', event => {
         player.name = document.forms["name"].elements["nickname"].value
         account[0] = player.name
@@ -59,13 +73,6 @@ if (player.balance === 0) {
     localStorage.setItem('account-game21', JSON.stringify(account))
     getBalanceNew(player.balance, 0)
 }
-const dealer = {
-    name: 'Дилер',
-    card: [],
-    cardStop: false,
-    sumCard: 0,
-    balance: 100,
-}
 
 const dealerMakeMove = () => {
     dealerMove = setInterval(() => {
@@ -76,6 +83,34 @@ const dealerMakeMove = () => {
         }
     }, 2000)
 }
+
+// function getCardCount() {
+//     let a = 0
+//     return () =>{
+//         return a++
+//     }
+// }
+
+// let playerCount = getCardCount()
+// let dealerCount = getCardCount()
+
+// async function check() {
+//     console.log('начало');
+//     console.log(player.card.length + " " + playerCount());
+//     playerCount1 = playerCount()
+//     console.log('~ ' + playerCount1);
+//     console.log(player.card.length > 2324);
+//     if (player.card.length) {
+//         console.log('yes');
+//         playerCount()
+//         console.log(playerCount());
+//     } else {
+//         console.log('set');
+//         setTimeout(check, 2000)
+//     }
+// }
+
+// setTimeout(check, 2000)
 
 const getCheckGame = () => {
     checkGame = setInterval(() => {
@@ -189,7 +224,6 @@ function getGameNew() {
 }
 
 selectCreditBtn.addEventListener('click', () => {
-
     player.balance += 10
     getBalanceNew(player.balance, 0)
     getGameNew()
@@ -202,7 +236,6 @@ selectCreditBtn.addEventListener('click', () => {
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (min - max) + max)
 }
-
 function getDeck() {
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
     // const suits = ["clubs", "diamonds", "hearts", "spades"]
@@ -271,6 +304,7 @@ function getCheck() {
         balance = player.balance + player.rate
         getBalanceNew(balance, player.balance)
         player.balance += player.rate
+        player.statistics.win++
         getStyle()
     } else if (getSum(dealer.card) > getSum(player.card) && getSum(dealer.card) <= 21 && player.cardStop && dealer.cardStop || getSum(player.card) > 21 || getSum(dealer.card) === 21) {
         classAdd('.board__message', '.animation__opacity')
@@ -285,6 +319,7 @@ function getCheck() {
         balance = player.balance - player.rate
         getBalanceNew(balance, player.balance)
         player.balance -= player.rate
+        player.statistics.lose++
         getStyle()
     } else if (getSum(player.card) === 21 && getSum(dealer.card) !== 21) {
         classAdd('.board__message', '.animation__opacity')
@@ -300,6 +335,7 @@ function getCheck() {
         getBalanceNew(balance, player.balance)
         player.balance += player.rate
         getStyle()
+        player.statistics.win++
     }
     function getStyle() {
         if (player.balance <= 0) {
@@ -314,11 +350,21 @@ function getCheck() {
         stopBtn.classList.add('hide')
         clearInterval(dealerMove)
         newGame = false
+        player.statistics.total++
+        getStatistic()
     }
-    account = [player.name, player.balance]
+    account = [player.name, player.balance, player.statistics.win, player.statistics.lose, player.statistics.total]
     localStorage.setItem('account-game21', JSON.stringify(account))
 }
 
+function getStatistic() {
+    document.querySelector('.statistic__win').textContent = player.statistics.win
+    document.querySelector('.statistic__lose').textContent = player.statistics.lose
+    document.querySelector('.statistic__draw').textContent = (player.statistics.total - player.statistics.lose) - player.statistics.win
+    document.querySelector('.statistic__total').textContent = player.statistics.total
+    document.querySelector('.statistic__win__percent').textContent = (player.statistics.win * 100) / player.statistics.total
+
+}
 function getCardFor(name) {
     let sum = document.querySelectorAll('.board__sum')
     let rank, suit
@@ -355,6 +401,7 @@ function getCardFor(name) {
     </div>`
     classAdd(`.card-${q}`, '.open', 100)
 }
+
 function suitColor(suit) {
     if (suit.indexOf('diams') !== -1 || suit.indexOf('hearts') !== -1) {
         return `<div class="red">${suit}</div>`
@@ -362,12 +409,14 @@ function suitColor(suit) {
         return `<div class="">${suit}</div>`
     }
 }
+
 function getCardNew(name, deck) {
     if (deck.length >= 1) {
         name.push(deck.pop())
         return name
     }
 }
+
 function getCoords(elem) {
     let box = elem.getBoundingClientRect();
     return {
@@ -427,24 +476,36 @@ function elementAdd(element, className) {
     }
     element.append(e)
 }
+
 function elementDelete(className, duration = 0) {
     let e = document.querySelector(`${className}`)
     setTimeout(() => {
         e.remove()
     }, duration)
 }
+
 function classAdd(className, classAdd, duration = 0) {
     let e = document.querySelector(`${className}`)
     setTimeout(() => {
         e.classList.add(`${classAdd.substring(1, classAdd.length)}`)
     }, duration)
 }
+
 function elementClassRemove(element, classRemove, duration = 0) {
     if (element.charAt(0) === '.' || element.charAt(0) === '#') {
         element = document.querySelector(`${element}`)
     }
     setTimeout(() => {
         element.classList.remove(`${classRemove}`)
+    }, duration)
+}
+
+function elementClassAdd(element, classRemove, duration = 0) {
+    if (element.charAt(0) === '.' || element.charAt(0) === '#') {
+        element = document.querySelector(`${element}`)
+    }
+    setTimeout(() => {
+        element.classList.add(`${classRemove}`)
     }, duration)
 }
 
@@ -482,12 +543,53 @@ function setChildNodesText(element, className, text) {
 // setChildNodesText('#modal-name', 'modal__header', 'Ваше Имя:')
 
 
-// function getBalance(a) {
-//     return function(b) {
-//         return a * b
-//     }
+
+// let modalButtons = document.querySelectorAll('.js-open-modal')
+// modalButtons.forEach(function(item){
+// });
+
+// let modalClose = document.querySelectorAll('.modal__close');
+// for (var i = 0; i < modalClose.length; i++) {
+//     modalClose[i].addEventListener('click', (event) => {
+//             event.target.closest('.modal').classList.toggle('hide')
+//         })
 // }
 
-// const balance = getBalance(100)
 
-// console.log(balance(2));
+// !function(e){"function"!=typeof e.matches&&(e.matches=e.msMatchesSelector||e.mozMatchesSelector||e.webkitMatchesSelector||function(e){for(var t=this,o=(t.document||t.ownerDocument).querySelectorAll(e),n=0;o[n]&&o[n]!==t;)++n;return Boolean(o[n])}),"function"!=typeof e.closest&&(e.closest=function(e){for(var t=this;t&&1===t.nodeType;){if(t.matches(e))return t;t=t.parentNode}return null})}(window.Element.prototype);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+   var modalButtons = document.querySelectorAll('.modal__open'),
+       overlay      = document.querySelector('.modal__overlay'),
+       closeButtons = document.querySelectorAll('.modal__close');
+   modalButtons.forEach(function(item){
+      item.addEventListener('click', function(e) {
+         e.preventDefault();
+         var modalId = this.getAttribute('data-modal'),
+             modalElem = document.querySelector('.modal[data-modal="' + modalId + '"]');
+         modalElem.classList.add('active');
+         overlay.classList.add('active');
+      })
+   })
+   
+   closeButtons.forEach(function(item){
+      item.addEventListener('click', function(e) {
+         this.closest('.modal').classList.remove('active');
+         overlay.classList.remove('active');
+      })
+   })
+
+    document.body.addEventListener('keyup', function (e) {
+        var key = e.keyCode;
+        if (key == 27) {
+            document.querySelector('.modal.active').classList.remove('active');
+            document.querySelector('.overlay').classList.remove('active');
+        };
+    }, false)
+
+    overlay.addEventListener('click', function() {
+        document.querySelector('.modal.active').classList.remove('active');
+        this.classList.remove('active');
+    })
+})
