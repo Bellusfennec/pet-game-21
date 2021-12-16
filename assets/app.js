@@ -50,7 +50,7 @@ if (localStorage.getItem('account-game21')) {
     player.statistics.lose = account[3]
     player.statistics.total = account[4]
     textAdd('.profile__name', account[0])
-    textAdd('.profile__balance__number', accoSunt[1])
+    textAdd('.profile__balance__number', account[1])
     getStatistic()
 } else {
     elementClassAdd('#modal-name', 'active', 1000)
