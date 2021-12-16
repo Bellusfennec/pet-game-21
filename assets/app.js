@@ -51,7 +51,6 @@ if (localStorage.getItem('account-game21')) {
     player.statistics.total = account[4]
     textAdd('.profile__name', account[0])
     textAdd('.profile__balance__number', account[1])
-    getStatistic()
 } else {
     elementClassAdd('#modal-name', 'active', 1000)
     document.forms["name"].addEventListener('submit', event => {
@@ -62,8 +61,8 @@ if (localStorage.getItem('account-game21')) {
     })
     textAdd('.profile__name', player.name)
     textAdd('.profile__balance__number', player.balance)
-    getStatistic()
 }
+getStatistic()
 if (player.balance === 0) {
     classAdd('.board__message', '.animation__opacity')
     textAdd('.board__message', 'Вам начислено 10 монет! ;)')
@@ -362,8 +361,8 @@ function getStatistic() {
     document.querySelector('.statistic__lose').textContent = player.statistics.lose
     document.querySelector('.statistic__draw').textContent = (player.statistics.total - player.statistics.lose) - player.statistics.win
     document.querySelector('.statistic__total').textContent = player.statistics.total
-    document.querySelector('.statistic__win__percent').textContent = (player.statistics.win * 100) / player.statistics.total
-
+    let total = (player.statistics.win * 100) / player.statistics.total
+    document.querySelector('.statistic__win__percent').textContent = Number(total.toFixed(1))
 }
 function getCardFor(name) {
     let sum = document.querySelectorAll('.board__sum')
