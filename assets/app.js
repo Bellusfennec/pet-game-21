@@ -50,10 +50,9 @@ if (localStorage.getItem('account-game21')) {
     player.statistics.lose = account[3]
     player.statistics.total = account[4]
     textAdd('.profile__name', account[0])
-    textAdd('.profile__balance__number', account[1])
+    textAdd('.profile__balance__number', accoSunt[1])
     getStatistic()
 } else {
-    
     elementClassAdd('#modal-name', 'active', 1000)
     document.forms["name"].addEventListener('submit', event => {
         player.name = document.forms["name"].elements["nickname"].value
@@ -63,6 +62,7 @@ if (localStorage.getItem('account-game21')) {
     })
     textAdd('.profile__name', player.name)
     textAdd('.profile__balance__number', player.balance)
+    getStatistic()
 }
 if (player.balance === 0) {
     classAdd('.board__message', '.animation__opacity')
