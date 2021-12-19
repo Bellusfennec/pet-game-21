@@ -15,9 +15,8 @@ const selectRateBtn = document.querySelector('#select-rate-btn')
 let newGame= false
 let deck = []
 let dealerMove
-let account = []
 
-const player = {
+let player = {
     name: 'Вы',
     card: [],
     cardStop: false,
@@ -29,9 +28,6 @@ const player = {
         win: 0,
         lose: 0,
         total: 0,
-    },
-    winCount: function() {
-        return this.win++
     }
 }
 
@@ -42,35 +38,41 @@ const dealer = {
     sumCard: 0,
     balance: 100,
 }
-if (localStorage.getItem('account-game21')) {
-    account = JSON.parse(localStorage.getItem('account-game21'))
-    player.name = account[0]
-    player.balance = account[1]
-    player.statistics.win = account[2]
-    player.statistics.lose = account[3]
-    player.statistics.total = account[4]
-    textAdd('.profile__name', account[0])
-    textAdd('.profile__balance__number', account[1])
+
+if (!localStorage.getItem('account-game21')) {
+    localStorage.setItem('account-game21', JSON.stringify(player))
 } else {
+    player = JSON.parse(localStorage.getItem('account-game21'))
+
+    if (player.balance === 0) {
+        classAdd('.board__message', '.animation__opacity')
+        textAdd('.board__message', 'Вам начислено 10 монет! ;)')
+        classRemove('.board__message', '.animation__opacity', 5000)
+        player.balance += 10
+        localStorage.setItem('account-game21', JSON.stringify(player))
+        getBalanceNew(player.balance, 0)
+    }
+}
+
+if (player.name === 'Вы') {
     elementClassAdd('#modal-name', 'active', 1000)
     document.forms["name"].addEventListener('submit', event => {
         player.name = document.forms["name"].elements["nickname"].value
-        account[0] = player.name
-        account[1] = player.balance
-        localStorage.setItem('account-game21', JSON.stringify(account))
+        localStorage.setItem('account-game21', JSON.stringify(player))
     })
-    textAdd('.profile__name', player.name)
-    textAdd('.profile__balance__number', player.balance)
 }
-getStatistic()
-if (player.balance === 0) {
-    classAdd('.board__message', '.animation__opacity')
-    textAdd('.board__message', 'Вам начислено 10 монет! ;)')
-    classRemove('.board__message', '.animation__opacity', 5000)
-    player.balance += 10
-    account[1] = player.balance
-    localStorage.setItem('account-game21', JSON.stringify(account))
-    getBalanceNew(player.balance, 0)
+
+textAdd('.profile__name', player.name)
+textAdd('.profile__balance__number', player.balance)
+updateStatisticElements()
+
+function updateStatisticElements() {
+    document.querySelector('.statistic__win').textContent = player.statistics.win
+    document.querySelector('.statistic__lose').textContent = player.statistics.lose
+    document.querySelector('.statistic__draw').textContent = (player.statistics.total - player.statistics.lose) - player.statistics.win
+    document.querySelector('.statistic__total').textContent = player.statistics.total
+    let total = (player.statistics.win * 100) / player.statistics.total || 0
+    document.querySelector('.statistic__win__percent').textContent = Number(total.toFixed(1))
 }
 
 const dealerMakeMove = () => {
@@ -135,14 +137,12 @@ document.querySelector('#rate-list').addEventListener('click', event => {
              } else if (player.rate === 100) {
                  rateInfo.innerHTML = `<div class="chip chip-black">${player.rate}</div>`
              }
-             modalRate.classList.add('hide')
              getGameNew()
 
              classAdd('.board__message', '.animation__opacity')
              textAdd('.board__message', 'Началась новая игра')
              classRemove('.board__message', '.animation__opacity', 5000)
 
-             newGame = true
              deck = getShuffle(getDeck())
              dealerMakeMove()
              getCheckGame()
@@ -161,15 +161,38 @@ stopBtn.addEventListener('click', () => {
 })
 
 selectRateBtn.addEventListener('click', () => {
-    modalRate.classList.remove('hide')
     selectRateBtn.classList.add('hide')
+})
+
+function getGameNew() {
+    newGame = true
+    dealer.card = []
+    player.card = []
+    deck = []
+    dealer.cardStop = false
+    player.cardStop = false
+    cards[0].innerHTML = `${dealer.card}`
+    cards[1].innerHTML = `${player.card}`
+    addBtn.classList.remove('hide')
+    stopBtn.classList.remove('hide')
+    sum[0].textContent = ''
+    sum[1].textContent = ''
+    sum[0].classList.add('hide')
+    sum[1].classList.add('hide')
+}
+
+selectCreditBtn.addEventListener('click', () => {
+    player.balance += 10
+    getBalanceNew(player.balance, 0)
+    getGameNew()
+    addBtn.classList.add('hide')
+    stopBtn.classList.add('hide')
 })
 
 function getBalanceNew(balance, balanceNew) {
     let ms = 2000
     let b = Math.abs(balance - balanceNew)
-    let step = 1
-    step = b > ms ? step = 1 + Math.pwc((String(b).length - 2), 3) : step
+    let step = b > ms ? 1 + Math.pow((String(b).length - 2), 3) : 1
     let t = Math.round(ms / (b / step))
     let interval = setInterval(() => {
         if (balanceNew == balance) {
@@ -204,33 +227,6 @@ function numberIncrease(element, to) {
         element.textContent = `${from}`
     }, t)
 }
-
-function getGameNew() {
-    dealer.card = []
-    player.card = []
-    deck = []
-    dealer.cardStop = false
-    player.cardStop = false
-    cards[0].innerHTML = `${dealer.card}`
-    cards[1].innerHTML = `${player.card}`
-    selectRateBtn.classList.add('hide')
-    addBtn.classList.remove('hide')
-    stopBtn.classList.remove('hide')
-    sum[0].textContent = ''
-    sum[1].textContent = ''
-    sum[0].classList.add('hide')
-    sum[1].classList.add('hide')
-}
-
-selectCreditBtn.addEventListener('click', () => {
-    player.balance += 10
-    getBalanceNew(player.balance, 0)
-    getGameNew()
-    selectCreditBtn.classList.add('hide')
-    modalRate.classList.remove('hide')
-    addBtn.classList.add('hide')
-    stopBtn.classList.add('hide')
-})
 
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (min - max) + max)
@@ -350,47 +346,30 @@ function getCheck() {
         clearInterval(dealerMove)
         newGame = false
         player.statistics.total++
-        getStatistic()
+        updateStatisticElements()
+        localStorage.setItem('account-game21', JSON.stringify(player))
     }
-    account = [player.name, player.balance, player.statistics.win, player.statistics.lose, player.statistics.total]
-    localStorage.setItem('account-game21', JSON.stringify(account))
-}
-
-function getStatistic() {
-    document.querySelector('.statistic__win').textContent = player.statistics.win
-    document.querySelector('.statistic__lose').textContent = player.statistics.lose
-    document.querySelector('.statistic__draw').textContent = (player.statistics.total - player.statistics.lose) - player.statistics.win
-    document.querySelector('.statistic__total').textContent = player.statistics.total
-    let total = (player.statistics.win * 100) / player.statistics.total
-    document.querySelector('.statistic__win__percent').textContent = Number(total.toFixed(1))
+    
 }
 function getCardFor(name) {
     let sum = document.querySelectorAll('.board__sum')
-    let rank, suit
+    const cardNumber = document.querySelectorAll('.card').length
+
     getCardNew(name.card, deck)
-    rank = name.card[name.card.length - 1].split('_of_')[0]
-    suit = name.card[name.card.length - 1].split('_of_')[1]
+    const [rank, suit] = name.card[name.card.length - 1].split('_of_')
     if (name.name === 'Дилер') {
         n = 0
-
         numberIncrease(sum[n], getSum(dealer.card))
-        // textAdd(className,`${getSum(dealer.card)}`)
-
         // sum[n].innerHTML = `${getSum(dealer.card)}`
-    }  else if (name.name === account[0]) {
+    }  else {
         n = 1
-
         numberIncrease(sum[n], getSum(player.card))
-        // textAdd(className, text)
-
         // sum[n].innerHTML = `${getSum(player.card)}`
     }
     sum[n].classList.remove('hide')
     // cards[n].innerHTML += `<img class="card" src="assets/cards/deck_${rank}_of_${suit}.svg" alt="${rank}_of_${suit}">`
-    const card = document.querySelectorAll('.card')
-    let q = card.length
     cards[n].innerHTML += `
-    <div class="card card-${q}">
+    <div class="card card-${cardNumber}">
     <div class="card__front"></div>
     <div class="card__back">
         <div class="card__rank">${rank}</div>
@@ -398,7 +377,7 @@ function getCardFor(name) {
         <div class="card__icon__lg">${suitColor(suit)}</div>
     </div>
     </div>`
-    classAdd(`.card-${q}`, '.open', 100)
+    classAdd(`.card-${cardNumber}`, '.open', 100)
 }
 
 function suitColor(suit) {
