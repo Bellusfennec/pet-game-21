@@ -39,17 +39,17 @@ const dealer = {
     balance: 100,
 }
 
-if (!localStorage.getItem('account-game21')) {
-    localStorage.setItem('account-game21', JSON.stringify(player))
+if (!localStorage.getItem('account-player')) {
+    localStorage.setItem('account-player', JSON.stringify(player))
 } else {
-    player = JSON.parse(localStorage.getItem('account-game21'))
+    player = JSON.parse(localStorage.getItem('account-player'))
 
     if (player.balance === 0) {
         classAdd('.board__message', '.animation__opacity')
         textAdd('.board__message', 'Вам начислено 10 монет! ;)')
         classRemove('.board__message', '.animation__opacity', 5000)
         player.balance += 10
-        localStorage.setItem('account-game21', JSON.stringify(player))
+        localStorage.setItem('account-player', JSON.stringify(player))
         getBalanceNew(player.balance, 0)
     }
 }
@@ -58,7 +58,7 @@ if (player.name === 'Вы') {
     elementClassAdd('#modal-name', 'active', 1000)
     document.forms["name"].addEventListener('submit', event => {
         player.name = document.forms["name"].elements["nickname"].value
-        localStorage.setItem('account-game21', JSON.stringify(player))
+        localStorage.setItem('account-player', JSON.stringify(player))
     })
 }
 
@@ -347,7 +347,7 @@ function getCheck() {
         newGame = false
         player.statistics.total++
         updateStatisticElements()
-        localStorage.setItem('account-game21', JSON.stringify(player))
+        localStorage.setItem('account-player', JSON.stringify(player))
     }
     
 }
