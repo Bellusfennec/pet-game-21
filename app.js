@@ -21,14 +21,6 @@ const app = express()
 //     }
 //  })
 
-
-
-
-
-
-
-
-
 const CONTACTS = [
     {id: v4(), name: 'Нияз', value: '891700022200', marked: false}
 ]
@@ -47,6 +39,7 @@ app.post('/api/contacts', (req, res) => {
     res.status(201).json(contact)
 })
 
+
 app.use(express.static(path.resolve(__dirname, 'client')))
 
 app.get('*', (req, res) => {
@@ -55,13 +48,4 @@ app.get('*', (req, res) => {
 
 app.listen(3000, () => console.log('Server has been started...'))
 
-// const PORT = process.env.PORT || 3000
-// const http = require('http');
-
-// let server = http.createServer(function(req, res) {
-// res.writeHead(200, { 'Content-Type': 'text/plain' });
-// res.end('Hello World!!');
-// });
-
-// server.listen(PORT, () => console.log('Server has been started...'))
 
