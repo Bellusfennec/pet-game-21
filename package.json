@@ -1,15 +1,26 @@
 {
-  "name": "zerda-game",
+  "name": "zerdaproject",
   "version": "1.0.0",
-  "description": "mini project",
-  "main": "index.js",
+  "description": "my project (21)",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [
-    "node",
-    "learn"
+    "js",
+    "rest",
+    "api"
   ],
-  "author": "Niyaz Zaytsev <bellusfennec@gmail.com>",
-  "license": "ISC"
+  "author": "Niyaz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "ws": "3.3.2"
+  }
 }
