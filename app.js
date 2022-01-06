@@ -5,6 +5,7 @@ const path = require('path')
 const {v4} = require('uuid')
 const mysql = require("mysql2")
 const app = express()
+const PORT = process.env.PORT || 3000
 
 // const connection = mysql.createConnection({
 //     host: "localhost",
@@ -20,6 +21,14 @@ const app = express()
 //       console.log("Подключение к серверу MySQL успешно установлено");
 //     }
 //  })
+
+
+
+
+
+
+
+
 
 const CONTACTS = [
     {id: v4(), name: 'Нияз', value: '891700022200', marked: false}
@@ -46,6 +55,14 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'index.html'))
 })
 
-app.listen(3000, () => console.log('Server has been started...'))
+app.listen(PORT, () => console.log('Server has been started...'))
 
+// const http = require('http');
+
+// let server = http.createServer(function(req, res) {
+// res.writeHead(200, { 'Content-Type': 'text/plain' });
+// res.end('Hello World!!');
+// });
+
+// server.listen(PORT, () => console.log('Server has been started...'))
 
